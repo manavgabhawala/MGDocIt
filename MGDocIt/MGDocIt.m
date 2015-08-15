@@ -27,6 +27,7 @@
 {
     if (self = [super init]) {
         // reference to plugin's bundle, for resource access
+		self.lock = [[NSLock alloc] init];
         self.bundle = plugin;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didApplicationFinishLaunchingNotification:)

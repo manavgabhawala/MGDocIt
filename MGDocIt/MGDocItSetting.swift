@@ -11,7 +11,7 @@ import Foundation
 private let defaults = NSUserDefaults.standardUserDefaults()
 
 private let triggerStringKey = "MGTriggerString"
-
+private let useDvorakKey = "MGDvorakLayout"
 
 @objc class MGDocItSetting: NSObject
 {
@@ -35,6 +35,18 @@ private let triggerStringKey = "MGTriggerString"
 				return
 			}
 			defaults.setObject(newValue, forKey: triggerStringKey)
+		}
+	}
+	
+	class var useDvorakLayout: Bool
+	{
+		get
+		{
+			return defaults.boolForKey(useDvorakKey)
+		}
+		set
+		{
+			defaults.setBool(newValue, forKey: useDvorakKey)
 		}
 	}
 }

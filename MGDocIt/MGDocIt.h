@@ -19,7 +19,12 @@ static MGDocIt *sharedPlugin;
 + (instancetype)sharedPlugin;
 - (id)initWithBundle:(NSBundle *)plugin;
 
-@property (nonatomic, strong, readonly) NSBundle* bundle;
+@property (nonatomic, strong, readonly) NSBundle *bundle;
+
+@property (atomic, strong) NSLock *lock;
+
+@property (nonatomic, strong, nullable) id eventMonitor;
+
 @end
 
 NS_ASSUME_NONNULL_END

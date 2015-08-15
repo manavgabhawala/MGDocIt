@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSInteger) currentCursorLocation;
 -(MGTextResult * _Nullable) textResultOfCurrentLine;
--(MGTextResult * _Nullable) textResultOfPreviousLine;
--(MGTextResult * _Nullable) textResultOfNextLine;
+//-(MGTextResult * _Nullable) textResultOfPreviousLine;
+//-(MGTextResult * _Nullable) textResultOfNextLine;
 
 
 //-(MGTextResult * _Nullable) textResultUntilNextString:(NSString *)findString;

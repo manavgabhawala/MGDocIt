@@ -11,7 +11,7 @@
 		821BF5531B7E613200E299F1 /* SyntaxKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BF5521B7E613200E299F1 /* SyntaxKind.swift */; };
 		821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BF5541B7E6A7F00E299F1 /* SwiftDeclarationKind.swift */; };
 		821BF5581B7E709600E299F1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 821BF5561B7E709600E299F1 /* LICENSE */; };
-		821BF5591B7E709600E299F1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 821BF5571B7E709600E299F1 /* README.md */; };
+		821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */; };
 		8271FE151B7DCEE300669FE7 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE141B7DCEE300669FE7 /* AppKit.framework */; };
 		8271FE171B7DCEE300669FE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE161B7DCEE300669FE7 /* Foundation.framework */; };
 		8271FE1B1B7DCEE300669FE7 /* MGDocIt.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = 8271FE1A1B7DCEE300669FE7 /* MGDocIt.xcscheme */; };
@@ -20,6 +20,18 @@
 		82E16B3F1B7E4FF50087BD2C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E16B3E1B7E4FF50087BD2C /* Request.swift */; };
 		82E16B411B7E51350087BD2C /* SwiftDocKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E16B401B7E51350087BD2C /* SwiftDocKey.swift */; };
 		82E16B431B7E58F70087BD2C /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E16B421B7E58F70087BD2C /* sourcekitd.framework */; };
+		82EB00E71B7F7FD00022016F /* SwiftDocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00E61B7F7FD00022016F /* SwiftDocumentType.swift */; };
+		82EB00EA1B7F80D30022016F /* SwiftFunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00E91B7F80D30022016F /* SwiftFunctionType.swift */; };
+		82EB00EC1B7FC2300022016F /* SwiftExtensionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00EB1B7FC2300022016F /* SwiftExtensionType.swift */; };
+		82EB00EE1B7FC32B0022016F /* SwiftClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00ED1B7FC32B0022016F /* SwiftClassType.swift */; };
+		82EB00F01B7FC3630022016F /* SwiftNameOnlyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00EF1B7FC3630022016F /* SwiftNameOnlyType.swift */; };
+		82EB00F21B7FC3EF0022016F /* SwiftStructType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00F11B7FC3EF0022016F /* SwiftStructType.swift */; };
+		82EB00F41B7FC3FD0022016F /* SwiftProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00F31B7FC3FD0022016F /* SwiftProtocolType.swift */; };
+		82EB00F71B7FC4C60022016F /* SwiftVarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00F61B7FC4C60022016F /* SwiftVarType.swift */; };
+		82EB00F91B7FC4DB0022016F /* SwiftTypealiasType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00F81B7FC4DB0022016F /* SwiftTypealiasType.swift */; };
+		82EB00FB1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00FA1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift */; };
+		82EB00FD1B7FC9F50022016F /* SwiftEnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00FC1B7FC9F50022016F /* SwiftEnumType.swift */; };
+		82EB00FF1B7FCAA60022016F /* SwiftEnumElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EB00FE1B7FCAA50022016F /* SwiftEnumElementType.swift */; };
 		82F176451B7DE02C008C1E29 /* NSTextView+TextGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F176441B7DE02C008C1E29 /* NSTextView+TextGetter.m */; };
 		82F176481B7DE063008C1E29 /* MGTextResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F176471B7DE063008C1E29 /* MGTextResult.m */; };
 		82F1764B1B7E01D0008C1E29 /* NSString+TextGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F1764A1B7E01D0008C1E29 /* NSString+TextGetter.m */; };
@@ -37,6 +49,8 @@
 		821BF5541B7E6A7F00E299F1 /* SwiftDeclarationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDeclarationKind.swift; sourceTree = "<group>"; };
 		821BF5561B7E709600E299F1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		821BF5571B7E709600E299F1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		821E4FEE1B7F1B7D0020030F /* KeyboardSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardSimulator.h; sourceTree = "<group>"; };
+		821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardSimulator.m; sourceTree = "<group>"; };
 		8271FE111B7DCEE300669FE7 /* MGDocIt.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGDocIt.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8271FE141B7DCEE300669FE7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		8271FE161B7DCEE300669FE7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -49,6 +63,18 @@
 		82E16B3E1B7E4FF50087BD2C /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		82E16B401B7E51350087BD2C /* SwiftDocKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocKey.swift; sourceTree = "<group>"; };
 		82E16B421B7E58F70087BD2C /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = MGDocIt/sourcekitd.framework; sourceTree = "<group>"; };
+		82EB00E61B7F7FD00022016F /* SwiftDocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocumentType.swift; sourceTree = "<group>"; };
+		82EB00E91B7F80D30022016F /* SwiftFunctionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftFunctionType.swift; sourceTree = "<group>"; };
+		82EB00EB1B7FC2300022016F /* SwiftExtensionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensionType.swift; sourceTree = "<group>"; };
+		82EB00ED1B7FC32B0022016F /* SwiftClassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftClassType.swift; sourceTree = "<group>"; };
+		82EB00EF1B7FC3630022016F /* SwiftNameOnlyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNameOnlyType.swift; sourceTree = "<group>"; };
+		82EB00F11B7FC3EF0022016F /* SwiftStructType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftStructType.swift; sourceTree = "<group>"; };
+		82EB00F31B7FC3FD0022016F /* SwiftProtocolType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftProtocolType.swift; sourceTree = "<group>"; };
+		82EB00F61B7FC4C60022016F /* SwiftVarType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftVarType.swift; sourceTree = "<group>"; };
+		82EB00F81B7FC4DB0022016F /* SwiftTypealiasType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTypealiasType.swift; sourceTree = "<group>"; };
+		82EB00FA1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNameAndInheritedType.swift; sourceTree = "<group>"; };
+		82EB00FC1B7FC9F50022016F /* SwiftEnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftEnumType.swift; sourceTree = "<group>"; };
+		82EB00FE1B7FCAA50022016F /* SwiftEnumElementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftEnumElementType.swift; sourceTree = "<group>"; };
 		82F1763E1B7DD939008C1E29 /* MGDocIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGDocIt-Bridging-Header.h"; sourceTree = "<group>"; };
 		82F176431B7DE02C008C1E29 /* NSTextView+TextGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+TextGetter.h"; sourceTree = "<group>"; };
 		82F176441B7DE02C008C1E29 /* NSTextView+TextGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+TextGetter.m"; sourceTree = "<group>"; };
@@ -79,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		821E4FF11B7F1B830020030F /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				821E4FEE1B7F1B7D0020030F /* KeyboardSimulator.h */,
+				821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */,
+			);
+			name = Keyboard;
+			sourceTree = "<group>";
+		};
 		8271FE081B7DCEE300669FE7 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +150,8 @@
 				8271FE1C1B7DCEE300669FE7 /* MGDocIt.h */,
 				8271FE1D1B7DCEE300669FE7 /* MGDocIt.m */,
 				82F176531B7E0734008C1E29 /* MGDocIt.swift */,
+				82EB00E81B7F80C60022016F /* SwiftTypes */,
+				821E4FF11B7F1B830020030F /* Keyboard */,
 				82F1764D1B7E03DA008C1E29 /* Model */,
 				82F1764C1B7E03D0008C1E29 /* Categories */,
 				82F176511B7E04B5008C1E29 /* MGDocItSetting.swift */,
@@ -135,9 +172,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		82EB00E81B7F80C60022016F /* SwiftTypes */ = {
+			isa = PBXGroup;
+			children = (
+				82EB00E61B7F7FD00022016F /* SwiftDocumentType.swift */,
+				82EB00E91B7F80D30022016F /* SwiftFunctionType.swift */,
+				82EB00F51B7FC4230022016F /* Name Only */,
+			);
+			name = SwiftTypes;
+			sourceTree = "<group>";
+		};
+		82EB00F51B7FC4230022016F /* Name Only */ = {
+			isa = PBXGroup;
+			children = (
+				82EB00EF1B7FC3630022016F /* SwiftNameOnlyType.swift */,
+				82EB00F81B7FC4DB0022016F /* SwiftTypealiasType.swift */,
+				82EB00F61B7FC4C60022016F /* SwiftVarType.swift */,
+				82EB00FA1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift */,
+				82EB00EB1B7FC2300022016F /* SwiftExtensionType.swift */,
+				82EB00ED1B7FC32B0022016F /* SwiftClassType.swift */,
+				82EB00F11B7FC3EF0022016F /* SwiftStructType.swift */,
+				82EB00F31B7FC3FD0022016F /* SwiftProtocolType.swift */,
+				82EB00FC1B7FC9F50022016F /* SwiftEnumType.swift */,
+				82EB00FE1B7FCAA50022016F /* SwiftEnumElementType.swift */,
+			);
+			name = "Name Only";
+			sourceTree = "<group>";
+		};
 		82F1764C1B7E03D0008C1E29 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				82F1765B1B7E4A2C008C1E29 /* XPCHelper.swift */,
 				82F176431B7DE02C008C1E29 /* NSTextView+TextGetter.h */,
 				82F176441B7DE02C008C1E29 /* NSTextView+TextGetter.m */,
 				82F176491B7E01D0008C1E29 /* NSString+TextGetter.h */,
@@ -158,7 +223,6 @@
 				821BF5541B7E6A7F00E299F1 /* SwiftDeclarationKind.swift */,
 				82F176571B7E48DD008C1E29 /* SyntaxToken.swift */,
 				821BF5521B7E613200E299F1 /* SyntaxKind.swift */,
-				82F1765B1B7E4A2C008C1E29 /* XPCHelper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -235,19 +299,31 @@
 				82F176521B7E04B5008C1E29 /* MGDocItSetting.swift in Sources */,
 				82E16B3F1B7E4FF50087BD2C /* Request.swift in Sources */,
 				82F1765C1B7E4A2C008C1E29 /* XPCHelper.swift in Sources */,
+				82EB00E71B7F7FD00022016F /* SwiftDocumentType.swift in Sources */,
+				82EB00F41B7FC3FD0022016F /* SwiftProtocolType.swift in Sources */,
+				82EB00EE1B7FC32B0022016F /* SwiftClassType.swift in Sources */,
 				82F1764B1B7E01D0008C1E29 /* NSString+TextGetter.m in Sources */,
 				8271FE1E1B7DCEE300669FE7 /* MGDocIt.m in Sources */,
 				82F176541B7E0734008C1E29 /* MGDocIt.swift in Sources */,
-				821BF5591B7E709600E299F1 /* README.md in Sources */,
+				82EB00F91B7FC4DB0022016F /* SwiftTypealiasType.swift in Sources */,
+				82EB00F21B7FC3EF0022016F /* SwiftStructType.swift in Sources */,
+				82EB00FF1B7FCAA60022016F /* SwiftEnumElementType.swift in Sources */,
 				821BF5531B7E613200E299F1 /* SyntaxKind.swift in Sources */,
 				82F176581B7E48DD008C1E29 /* SyntaxToken.swift in Sources */,
+				82EB00F01B7FC3630022016F /* SwiftNameOnlyType.swift in Sources */,
+				82EB00F71B7FC4C60022016F /* SwiftVarType.swift in Sources */,
 				82E16B411B7E51350087BD2C /* SwiftDocKey.swift in Sources */,
 				82F1765A1B7E4951008C1E29 /* File.swift in Sources */,
 				82F176481B7DE063008C1E29 /* MGTextResult.m in Sources */,
 				8271FE211B7DCEE300669FE7 /* NSObject_Extension.m in Sources */,
+				82EB00FB1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift in Sources */,
+				82EB00FD1B7FC9F50022016F /* SwiftEnumType.swift in Sources */,
+				82EB00EC1B7FC2300022016F /* SwiftExtensionType.swift in Sources */,
+				82EB00EA1B7F80D30022016F /* SwiftFunctionType.swift in Sources */,
 				82F176451B7DE02C008C1E29 /* NSTextView+TextGetter.m in Sources */,
 				82F176561B7E48B7008C1E29 /* SyntaxMap.swift in Sources */,
 				821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */,
+				821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

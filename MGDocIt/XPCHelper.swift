@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Protocol to group Swift/Objective-C types that can be represented as XPC types.
-public protocol XPCRepresentable {}
+public protocol XPCRepresentable : Any {}
 extension Array : XPCRepresentable {}
 extension Dictionary: XPCRepresentable {}
 extension String: XPCRepresentable {}
@@ -60,7 +60,8 @@ Converts an XPCRepresentable object to its xpc_object_t value.
 - parameter: object XPCRepresentable object to convert.
 - returns: Converted XPC object.
 */
-public func toXPCGeneral(object: XPCRepresentable) -> xpc_object_t? {
+public func toXPCGeneral(object: XPCRepresentable) -> xpc_object_t?
+{
 	switch object {
 	case let object as XPCArray:
 		return toXPC(object)
@@ -131,7 +132,8 @@ Converts an Array of XPCRepresentable objects to its xpc_object_t value.
 - parameter: array Array of XPCRepresentable objects to convert.
 - returns: Converted XPC array.
 */
-public func toXPC(array: XPCArray) -> xpc_object_t {
+public func toXPC(array: XPCArray) -> xpc_object_t
+{
 	let xpcArray = xpc_array_create(nil, 0)
 	for value in array {
 		if let xpcValue = toXPCGeneral(value) {
@@ -146,7 +148,8 @@ Converts an xpc_object_t array to an Array of XPCRepresentable objects.
 - parameter: xpcObject XPC array to to convert.
 - returns: Converted Array of XPCRepresentable objects.
 */
-public func fromXPC(xpcObject: xpc_object_t) -> XPCArray {
+public func fromXPC(xpcObject: xpc_object_t) -> XPCArray
+{
 	var array = XPCArray()
 	xpc_array_apply(xpcObject) { index, value in
 		if let value = fromXPCGeneral(value) {
@@ -164,7 +167,8 @@ Converts a Dictionary of XPCRepresentable objects to its xpc_object_t value.
 - parameter: dictionary Dictionary of XPCRepresentable objects to convert.
 - returns: Converted XPC dictionary.
 */
-public func toXPC(dictionary: XPCDictionary) -> xpc_object_t {
+public func toXPC(dictionary: XPCDictionary) -> xpc_object_t
+{
 	let xpcDictionary = xpc_dictionary_create(nil, nil, 0)
 	for (key, value) in dictionary {
 		xpc_dictionary_set_value(xpcDictionary, key, toXPCGeneral(value))
@@ -403,5 +407,107 @@ extension Array
 		}
 		return newArr
 	}
-
+	
+	
+	/// Returns the index of the first element whose `convertToInt` is ≥ compareTo parameter.
+	/// - Precondition: The array is sorted according to the element being converted to an Int being used and the array has an element which is ≥ to the ordering condition.
+	public func binarySearch(@noescape convertToInt: (Element) -> Int, compareTo elem: Int) -> Index?
+	{
+		guard count > 0
+		else
+		{
+			return nil
+		}
+		guard convertToInt(last!) >= elem
+			else
+		{
+			return nil
+		}
+		guard count > 1
+			else
+		{
+			return 0
+		}
+		guard convertToInt(first!) < elem
+			else
+		{
+			return 0
+		}
+		var start = 0
+		var end = count
+		while (end - start) > 1
+		{
+			let mid = (end + start) / 2
+			let val = convertToInt(self[mid])
+			if val > elem
+			{
+				let previous = convertToInt(self[mid - 1])
+				if previous < elem
+				{
+					return mid
+				}
+				end -= (mid - start)
+			}
+			else if val < elem
+			{
+				start += (mid - start)
+			}
+			else
+			{
+				return mid
+			}
+		}
+		return end
+	}
 }
+extension RawRepresentable
+{
+	public init?(raw: Self.RawValue?)
+	{
+		guard let raw = raw
+		else
+		{
+			return nil
+		}
+		self.init(rawValue: raw)
+	}
+}
+extension RangeReplaceableCollectionType
+{
+	mutating func append(newElements: Self)
+	{
+		for elem in newElements
+		{
+			self.append(elem)
+		}
+	}
+}
+
+func findAllSubstructures(dict: XPCDictionary) -> [XPCDictionary]
+{
+	guard let substructures = SwiftDocKey.getSubstructure(dict)
+	else
+	{
+		return []
+	}
+	var structures = [XPCDictionary]()
+	for structure in substructures
+	{
+		guard let aStruct = structure as? XPCDictionary
+		else
+		{
+			continue
+		}
+		guard let _ = SwiftDocKey.getKind(aStruct)
+		else
+		{
+			// Ignore non-documentable types.
+			continue
+		}
+		structures.append(aStruct)
+		structures.append(findAllSubstructures(aStruct))
+	}
+	return structures
+}
+
+

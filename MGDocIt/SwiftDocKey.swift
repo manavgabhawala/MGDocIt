@@ -15,6 +15,10 @@ internal enum SwiftDocKey: String
 	
 	/// Annotated declaration (String).
 	case AnnotatedDeclaration = "key.annotated_decl"
+	/// An array of attributes inside a structure. (XPCArray)
+	case Attributes = "key.attributes"
+	/// A single attribute of a structure
+	case Attribute = "key.attribute"
 	/// Body length (Int64).
 	case BodyLength           = "key.bodylength"
 	/// Body offset (Int64).
@@ -25,6 +29,8 @@ internal enum SwiftDocKey: String
 	case FilePath             = "key.filepath"
 	/// Full XML docs (String).
 	case FullXMLDocs          = "key.doc.full_as_xml"
+	/// InheritedTypes (XPCArray)
+	case InheritedTypes       = "key.inheritedtypes"
 	/// Kind (String).
 	case Kind                 = "key.kind"
 	/// Length (Int64).
@@ -87,7 +93,7 @@ internal enum SwiftDocKey: String
 	- returns: Typed value of a dictionary key.
 	*/
 	private static func get<T: XPCRepresentable>(key: SwiftDocKey, _ dictionary: XPCDictionary) -> T? {
-		return dictionary[key.rawValue] as! T?
+		return dictionary[key.rawValue] as? T
 	}
 	
 	/**
@@ -97,8 +103,23 @@ internal enum SwiftDocKey: String
 	
 	- returns: Kind string if successful.
 	*/
-	internal static func getKind(dictionary: XPCDictionary) -> String? {
-		return get(.Kind, dictionary)
+	internal static func getKind(dictionary: XPCDictionary) -> SwiftDeclarationKind? {
+		return SwiftDeclarationKind(raw: get(.Kind, dictionary))
+	}
+	
+	internal static func getAttributes(dictionary: XPCDictionary) -> XPCArray?
+	{
+		return get(.Attributes, dictionary)
+	}
+	
+	internal static func getAttribute(dictionary: XPCDictionary?) -> SwiftDeclarationKind?
+	{
+		guard let dict = dictionary
+		else
+		{
+			return nil
+		}
+		return SwiftDeclarationKind(raw: get(.Attribute, dict))
 	}
 	
 	/**
@@ -187,6 +208,21 @@ internal enum SwiftDocKey: String
 	*/
 	internal static func getNameLength(dictionary: XPCDictionary) -> Int64? {
 		return get(.NameLength, dictionary)
+	}
+	
+	internal static func getName(dictionary: XPCDictionary) -> String?
+	{
+		return get(.Name, dictionary)
+	}
+	
+	internal static func getInheritedTypes(dictionary: XPCDictionary) -> [String]?
+	{
+		guard let inherited = dictionary[InheritedTypes.rawValue] as? XPCArray
+		else
+		{
+			return nil
+		}
+		return inherited.map { SwiftDocKey.getName($0 as! XPCDictionary)! }
 	}
 	
 	/**

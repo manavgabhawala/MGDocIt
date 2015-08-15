@@ -22,14 +22,14 @@
 	return [self.textStorage.string textResultOfCurrentLineCurrentLocation: [self currentCursorLocation]];
 }
 
--(MGTextResult *) textResultOfPreviousLine
-{
-	return [self.textStorage.string textResultOfPreviousLineCurrentLocation:[self currentCursorLocation]];
-}
--(MGTextResult *) textResultOfNextLine
-{
-	return [self.textStorage.string textResultOfNextLineCurrentLocation:[self currentCursorLocation]];
-}
+//-(MGTextResult *) textResultOfPreviousLine
+//{
+//	return [self.textStorage.string textResultOfPreviousLineCurrentLocation:[self currentCursorLocation]];
+//}
+//-(MGTextResult *) textResultOfNextLine
+//{
+//	return [self.textStorage.string textResultOfNextLineCurrentLocation:[self currentCursorLocation]];
+//}
 
 //-(MGTextResult *) textResultUntilNextString:(NSString *)findString
 //{

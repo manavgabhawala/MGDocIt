@@ -5,3 +5,4 @@
 #import "MGDocIt.h"
 #import "MGTextResult.h"
 #import "NSTextView+TextGetter.h"
+#import "KeyboardSimulator.h"

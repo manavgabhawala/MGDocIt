@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (TextGetter)
 
 -(MGTextResult * _Nullable) textResultOfCurrentLineCurrentLocation:(NSInteger)location;
--(MGTextResult * _Nullable) textResultOfPreviousLineCurrentLocation:(NSInteger) location;
--(MGTextResult * _Nullable) textResultOfNextLineCurrentLocation:(NSInteger) location;
+//-(MGTextResult * _Nullable) textResultOfPreviousLineCurrentLocation:(NSInteger) location;
+//-(MGTextResult * _Nullable) textResultOfNextLineCurrentLocation:(NSInteger) location;
 
 //-(MGTextResult * _Nullable) textResultUntilNextString:(NSString *)findString currentLocation:(NSInteger)location;
 //

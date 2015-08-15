@@ -12,72 +12,73 @@
 
 -(MGTextResult *) textResultOfCurrentLineCurrentLocation:(NSInteger)location;
 {
-	NSInteger curseLocation = location;
-	NSRange range = NSMakeRange(0, curseLocation);
-	NSRange thisLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:range];
-	
-	NSString *line = nil;
-	if (thisLineRange.location != NSNotFound)
+	NSUInteger cursorLocation = location;
+	NSRange frontRange = NSMakeRange(0, cursorLocation);
+	NSRange frontPart = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:frontRange];
+	if (frontPart.location == NSNotFound)
 	{
-		NSRange lineRange = NSMakeRange(thisLineRange.location + 1, curseLocation - thisLineRange.location - 1);
-		if (lineRange.location < [self length] && NSMaxRange(lineRange) < [self length])
-		{
-			line = [self substringWithRange:lineRange];
-			return [[MGTextResult alloc] initWithString:line range:lineRange];
-		}
+		frontPart = NSMakeRange(0, 0);
 	}
-	return nil;
+	NSUInteger startingPoint = frontPart.location + frontPart.length;
+	NSRange lineRange = NSMakeRange(startingPoint, cursorLocation - startingPoint);
+	if (lineRange.location >= [self length] && NSMaxRange(lineRange) >= [self length])
+	{
+		return nil;
+	}
+	NSString *line = [self substringWithRange: lineRange];
+	
+	return [[MGTextResult alloc] initWithString:line range:lineRange];
 }
 
--(MGTextResult *) textResultOfPreviousLineCurrentLocation:(NSInteger) location
-{
-	NSInteger curseLocation = location;
-	NSRange range = NSMakeRange(0, curseLocation);
-	NSRange thisLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:range];
-	
-	NSString *line = nil;
-	if (thisLineRange.location != NSNotFound)
-	{
-		range = NSMakeRange(0, thisLineRange.location);
-		NSRange previousLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:range];
-		
-		if (previousLineRange.location != NSNotFound)
-		{
-			NSRange lineRange = NSMakeRange(previousLineRange.location + 1, thisLineRange.location - previousLineRange.location);
-			if (lineRange.location < [self length] && NSMaxRange(lineRange) < [self length])
-			{
-				line = [self substringWithRange:lineRange];
-				return [[MGTextResult alloc] initWithString:line range:lineRange];
-			}
-		}
-	}
-	return nil;
-}
-
-
--(MGTextResult *) textResultOfNextLineCurrentLocation:(NSInteger) location
-{
-	NSInteger curseLocation = location;
-	NSRange range = NSMakeRange(curseLocation, self.length - curseLocation);
-	NSRange thisLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:0 range:range];
-	
-	NSString *line = nil;
-	if (thisLineRange.location != NSNotFound)
-	{
-		range = NSMakeRange(thisLineRange.location + 1, self.length - thisLineRange.location - 1);
-		NSRange nextLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:0 range:range];
-		if (nextLineRange.location != NSNotFound)
-		{
-			NSRange lineRange = NSMakeRange(thisLineRange.location + 1, NSMaxRange(nextLineRange) - NSMaxRange(thisLineRange));
-			if (lineRange.location < [self length] && NSMaxRange(lineRange) < [self length])
-			{
-				line = [self substringWithRange:lineRange];
-				return [[MGTextResult alloc] initWithString:line range:lineRange];
-			}
-		}
-	}
-	return nil;
-}
+//-(MGTextResult *) textResultOfPreviousLineCurrentLocation:(NSInteger) location
+//{
+//	NSInteger curseLocation = location;
+//	NSRange range = NSMakeRange(0, curseLocation);
+//	NSRange thisLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:range];
+//	
+//	NSString *line = nil;
+//	if (thisLineRange.location != NSNotFound)
+//	{
+//		range = NSMakeRange(0, thisLineRange.location);
+//		NSRange previousLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch range:range];
+//		
+//		if (previousLineRange.location != NSNotFound)
+//		{
+//			NSRange lineRange = NSMakeRange(previousLineRange.location + 1, thisLineRange.location - previousLineRange.location);
+//			if (lineRange.location < [self length] && NSMaxRange(lineRange) < [self length])
+//			{
+//				line = [self substringWithRange:lineRange];
+//				return [[MGTextResult alloc] initWithString:line range:lineRange];
+//			}
+//		}
+//	}
+//	return nil;
+//}
+//
+//
+//-(MGTextResult *) textResultOfNextLineCurrentLocation:(NSInteger) location
+//{
+//	NSInteger curseLocation = location;
+//	NSRange range = NSMakeRange(curseLocation, self.length - curseLocation);
+//	NSRange thisLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:0 range:range];
+//	
+//	NSString *line = nil;
+//	if (thisLineRange.location != NSNotFound)
+//	{
+//		range = NSMakeRange(thisLineRange.location + 1, self.length - thisLineRange.location - 1);
+//		NSRange nextLineRange = [self rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:0 range:range];
+//		if (nextLineRange.location != NSNotFound)
+//		{
+//			NSRange lineRange = NSMakeRange(thisLineRange.location + 1, NSMaxRange(nextLineRange) - NSMaxRange(thisLineRange));
+//			if (lineRange.location < [self length] && NSMaxRange(lineRange) < [self length])
+//			{
+//				line = [self substringWithRange:lineRange];
+//				return [[MGTextResult alloc] initWithString:line range:lineRange];
+//			}
+//		}
+//	}
+//	return nil;
+//}
 
 //-(MGTextResult *) textResultUntilNextString:(NSString *)findString currentLocation:(NSInteger)location
 //{
