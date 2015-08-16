@@ -16,17 +16,30 @@ enum SwiftFunctionKind
 	case ConstructDestruct
 }
 
-class SwiftFunction : SwiftDocumentType
+final class SwiftFunction : SwiftDocumentType, Documentable
 {
-	var documentation: String
+	var key: String
 	{
-		// FIXME: Use preferences
-		return "/// Function \(name) of kind \(kind). Params: \(parameters) <#test#>. Returns: \(returns). Throws: \(throwsError)"
+		switch kind
+		{
+		case .Global:
+			return "MGSwiftFunctionGloabl"
+		case .StaticClass:
+			return "MGSwiftFunctionStaticClass"
+		case .Instance:
+			return "MGSwiftFunctionInstance"
+		case .ConstructDestruct:
+			return "MGSwiftConstructorDestructor"
+		}
+	}
+	var defaultText: String
+	{
+		return "<#Description of function #$0#>\n- Parameter #$1: This is a parameter of type `#$2`. <#Parameter #$1 description#>\nif#$4- Throws: <#Description#>\n\nend#$4if#$3- Returns: <#Description#>end#$3"
 	}
 	
 	var returns: Bool
 	var throwsError: Bool
-	var parameters = [String]()
+	var parameters = [(String, type: String)]()
 	var name: String
 	var kind: SwiftFunctionKind
 	
@@ -80,12 +93,12 @@ class SwiftFunction : SwiftDocumentType
 				{
 					continue
 				}
-				guard let kind = SwiftDocKey.getKind(sub) where kind == .VarParameter
+				guard let kind = SwiftDocKey.getKind(sub) where kind == .VarParameter, let type = SwiftDocKey.getTypeName(sub)
 				else
 				{
 					continue
 				}
-				parameters.append(SwiftDocKey.getName(sub) ?? "")
+				parameters.append((SwiftDocKey.getName(sub) ?? "_", type))
 			}
 		}
 		if let name = SwiftDocKey.getName(dict)
@@ -121,4 +134,47 @@ class SwiftFunction : SwiftDocumentType
 		}
 	}
 	
+	var availableTypes: [String: (String, DocumentableType)]
+	{
+		return ["#$0" : ("Name", .String),
+				"#$1" : ("Parameter", .Array),
+				"#$2" : ("ParameterType", .Array),
+				"#$3" : ("Returns", .Bool),
+				"#$4" : ("Throws", .Bool)]
+	}
+	
+	func stringForToken(token: String) -> String?
+	{
+		guard token == "#$0"
+		else
+		{
+			return nil
+		}
+		return name
+	}
+	
+	func arrayForToken(token: String) -> [String]?
+	{
+		if token == "#$1"
+		{
+			return parameters.map { $0.0 }
+		}
+		else if token == "#$2"
+		{
+			return parameters.map { $0.type }
+		}
+		return nil
+	}
+	func boolForToken(token: String) -> Bool?
+	{
+		if token == "#$3"
+		{
+			return returns
+		}
+		else if token == "#$4"
+		{
+			return throwsError
+		}
+		return nil
+	}
 }

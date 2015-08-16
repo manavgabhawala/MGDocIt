@@ -8,10 +8,14 @@
 
 import Foundation
 
-class SwiftClass : SwiftNameAndInheritedType
+private let classKey = "MGSwiftClassKey"
+private let classDefaultText = "/// <#Description of class #$0 #>"
+
+struct SwiftClass : SwiftNameAndInheritedType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return classKey }
+	var defaultText: String { return classDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
+	var inheritedTypes: [String]
 }

@@ -1,4 +1,4 @@
-//
+/// <#Description of enum SwiftDocKey #>//
 //  XPCHelper.swift
 //  MGDocIt
 //
@@ -419,17 +419,12 @@ extension Array
 			return nil
 		}
 		guard convertToInt(last!) >= elem
-			else
+		else
 		{
 			return nil
 		}
-		guard count > 1
-			else
-		{
-			return 0
-		}
-		guard convertToInt(first!) < elem
-			else
+		guard count > 1 && convertToInt(first!) < elem
+		else
 		{
 			return 0
 		}
@@ -483,31 +478,87 @@ extension RangeReplaceableCollectionType
 	}
 }
 
-func findAllSubstructures(dict: XPCDictionary) -> [XPCDictionary]
+func findAllSubstructures(dict: XPCDictionary?, withCursorPosition cursor: Int) -> XPCDictionary?
 {
-	guard let substructures = SwiftDocKey.getSubstructure(dict)
+	guard let dict = dict
 	else
 	{
-		return []
+		return nil
 	}
-	var structures = [XPCDictionary]()
-	for structure in substructures
+	guard let substructures = SwiftDocKey.getSubstructure(dict) where substructures.count > 0
+	else
 	{
-		guard let aStruct = structure as? XPCDictionary
-		else
-		{
-			continue
-		}
-		guard let _ = SwiftDocKey.getKind(aStruct)
-		else
-		{
-			// Ignore non-documentable types.
-			continue
-		}
-		structures.append(aStruct)
-		structures.append(findAllSubstructures(aStruct))
+		return nil
 	}
-	return structures
+	guard let structureIndex = substructures.binarySearch({ Int(SwiftDocKey.getOffset($0 as! XPCDictionary)!) }, compareTo: cursor)
+	else
+	{
+		return findAllSubstructures(substructures.last as? XPCDictionary, withCursorPosition: cursor)
+	}
+	// If there are previous structures check that they end before cursor.
+	if structureIndex > 1
+	{
+		let previousDict = substructures[structureIndex - 1] as! XPCDictionary
+		guard Int(SwiftDocKey.getOffset(previousDict)! + SwiftDocKey.getLength(previousDict)!) < cursor
+		else
+		{
+			// We are still inside the last structure so that's the one we will consider.
+			return findAllSubstructures(previousDict, withCursorPosition: cursor)
+		}
+	}
+	let nextDictionary = substructures[structureIndex] as! XPCDictionary
+	// If the cursor is before the next top level structure return that one.
+	return SwiftDocKey.getKind(nextDictionary) == nil ? nil : nextDictionary
 }
 
+extension String
+{
+	mutating func removeRange(range: Range<Index>)
+	{
+		self.replaceRange(range, with: "")
+	}
+	mutating func removeRange(start: Index, end: Index)
+	{
+		self.replaceRange(Range<Index>(start: start, end: end), with: "")
+	}
+	func stringByRemovingRange(range: Range<Index>) -> String
+	{
+		var str = self
+		str.removeRange(range)
+		return str
+	}
+	func stringByRemovingRange(start: Index, end: Index) -> String
+	{
+		var str = self
+		str.removeRange(start, end: end)
+		return str
+	}
+	func lineContainingRange(range: Range<Index>) -> (String, Range<Index>)
+	{
+		let frontRange = Range<Index>(start: startIndex, end: range.startIndex)
+		
+		let newStartIndex = rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: NSStringCompareOptions.BackwardsSearch, range: frontRange)?.startIndex ?? startIndex
+		
+		let backRange = Range<Index>(start: range.endIndex, end: endIndex)
+		let newEndIndex = rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: [], range: backRange)?.endIndex ?? endIndex
+		
+		let range = Range<Index>(start: newStartIndex, end: newEndIndex)
+		return (substringWithRange(range), range)
+	}
+	mutating func trimWhitespaceOnLeft()
+	{
+		var newStr = self
+		var newStart = startIndex
+		for char in newStr.unicodeScalars
+		{
+			guard NSCharacterSet.whitespaceCharacterSet().longCharacterIsMember(char.value)
+			else
+			{
+				break
+			}
+			newStart = newStart.successor()
+		}
+		removeRange(startIndex, end: newStart)
+	}
+}
 

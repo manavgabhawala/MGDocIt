@@ -13,12 +13,34 @@ extension MGDocIt
 {
 	func handleStorageChange(textStorage: NSTextView)
 	{
+		if mainMonitor == nil
+		{
+			mainMonitor = NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: { (event) -> NSEvent? in
+				let trigger = MGDocItSetting.triggerString
+				let triggerChar = trigger.substringFromIndex(trigger.endIndex.predecessor()).utf8.first!.value
+				if event.type == .KeyDown && self.keyCodeForChar(Int8(triggerChar)) == event.keyCode
+				{
+					self.lastCharTyped = true
+				}
+				else
+				{
+					self.lastCharTyped = false
+				}
+				return event
+			})
+		}
+		guard lastCharTyped
+		else
+		{
+			return
+		}
 		guard let currentLine = textStorage.textResultOfCurrentLine()
 		else
 		{
 			// No current line
 			return
 		}
+		currentLine.string.trimWhitespaceOnLeft()
 		let trigger = MGDocItSetting.triggerString
 		let triggerLength = trigger.characters.count
 		guard currentLine.string.characters.count >= triggerLength
@@ -27,10 +49,7 @@ extension MGDocIt
 			return
 		}
 		
-		let startIndex = advance(currentLine.string.endIndex, -triggerLength)
-		let typedString = currentLine.string.substringFromIndex(startIndex)
-		assert(triggerLength == typedString.characters.count)
-		guard typedString == trigger
+		guard currentLine.string == trigger
 		else
 		{
 			// No trigger was entered.
@@ -49,23 +68,17 @@ extension MGDocIt
 			let cursorPos = textStorage.currentCursorLocation() - triggerLength
 			
 			let textStorageStr = textStorage.textStorage!.string
-			let str = textStorageStr.stringByReplacingCharactersInRange(Range<String.Index>(start: advance(textStorageStr.startIndex, cursorPos), end: advance(textStorageStr.startIndex, cursorPos + triggerLength)), withString: "")
+			let str = textStorageStr.stringByRemovingRange(advance(textStorageStr.startIndex, cursorPos), end: advance(textStorageStr.startIndex, cursorPos + triggerLength))
 			
 			let fileToParse = File(contents: str)
 			
 			let response = Request.EditorOpen(fileToParse).send()
-			let structures = findAllSubstructures(response)
-			
-			assert(structures.map { SwiftDocKey.getOffset($0)! } == structures.sort { SwiftDocKey.getOffset($0)! < SwiftDocKey.getOffset($1)! }.map { SwiftDocKey.getOffset($0)! })
-			
-			guard let structIndex = structures.binarySearch({ Int(SwiftDocKey.getOffset($0)!) }, compareTo: cursorPos)
+			guard let structure = findAllSubstructures(response, withCursorPosition: cursorPos)
 			else
 			{
+				// Ignore non documentable kinds.
 				return
 			}
-			
-			let structure = structures[structIndex]
-			
 			if let attributes = SwiftDocKey.getAttributes(structure)
 			{
 				for attribute in attributes
@@ -85,7 +98,34 @@ extension MGDocIt
 			}
 			
 			let map = SyntaxMap(sourceKitResponse: response)
-			
+			guard let nextTokenIndex = map.tokens.binarySearch({ $0.offset }, compareTo: cursorPos)
+			else
+			{
+				return
+			}
+			let nextToken = map.tokens[nextTokenIndex]
+			guard nextToken.type != .DocComment && nextToken.type != .DocCommentField
+			else
+			{
+				return
+			}
+			if nextTokenIndex > 1
+			{
+				let previousTokenType = map.tokens[nextTokenIndex - 1].type
+				guard previousTokenType != .DocComment && previousTokenType != .DocCommentField
+				else
+				{
+					return
+				}
+			}
+			let startInd = advance(str.startIndex, nextToken.offset)
+			let nextWord = str.substringWithRange(Range<String.Index>(start: startInd, end: advance(startInd, nextToken.length)))
+			// Since import statements don't show up in the AST.
+			guard nextWord != "import"
+			else
+			{
+				return
+			}
 			
 			guard let type = createType(structure, map: map, stringDelegate: {
 				let startLoc = advance(str.startIndex, $0)
@@ -103,7 +143,7 @@ extension MGDocIt
 			var endIndex = fullIndentString.startIndex
 			for char in fullIndentString.unicodeScalars
 			{
-				guard NSCharacterSet.whitespaceCharacterSet().characterIsMember(UInt16(char.value))
+				guard NSCharacterSet.whitespaceCharacterSet().longCharacterIsMember(char.value)
 				else
 				{
 					break
@@ -117,7 +157,10 @@ extension MGDocIt
 				let oldData = pasteboard.stringForType(NSPasteboardTypeString)
 				
 				pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
-				pasteboard.setString("\(indentString)\(type.documentation)", forType: NSPasteboardTypeString)
+				
+				let docString = type.documentationWithIndentation(indentString)
+				
+				pasteboard.setString(docString, forType: NSPasteboardTypeString)
 				
 				KeyboardSimulator.defaultSimulator().beginKeyboardEvents()
 				KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Delete, withModifierCommand: true, alt: false, shift: false, control: false)
@@ -131,9 +174,11 @@ extension MGDocIt
 						
 						pasteboard.setString(oldData ?? "", forType: NSPasteboardTypeString)
 						let cursor = textStorage.currentCursorLocation()
-						textStorage.selectedRange = NSRange(location: Int(cursor - type.documentation.characters.count), length: 0)
-						
-						KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Tab)
+						if docString.rangeOfString("<#") != nil
+						{
+							textStorage.selectedRange = NSRange(location: max(0, Int(cursor - docString.characters.count)), length: 0)
+							KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Tab)
+						}
 						KeyboardSimulator.defaultSimulator().endKeyboardEvents()
 						
 						return nil
@@ -144,6 +189,7 @@ extension MGDocIt
 					}
 				})
 				
+				// FIXME: Use paste from preferences instead.
 				let kKeyVCode = MGDocItSetting.useDvorakLayout ? kVK_ANSI_Period : kVK_ANSI_V
 				
 				KeyboardSimulator.defaultSimulator().sendKeyCode(kKeyVCode, withModifierCommand: true, alt: false, shift: false, control: false)

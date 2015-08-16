@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 			  shift:(BOOL)shift
 			control:(BOOL)control;
 
-//-(void) sendKeyCode:(NSInteger)keyCode withModifier:(NSInteger)modifierMask;
+-(void) sendKeyCode:(NSInteger)keyCode withModifier:(NSInteger)modifierMask;
 
 -(void) endKeyboardEvents;
 

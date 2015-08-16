@@ -8,10 +8,14 @@
 
 import Foundation
 
-class SwiftProtocol : SwiftNameAndInheritedType
+private let protocolKey = "MGSwiftProtocolKey"
+private let protocolDefaultText = "/// <#Description of protocol #$0 #>"
+
+struct SwiftProtocol : SwiftNameAndInheritedType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return protocolKey }
+	var defaultText: String { return protocolDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
+	var inheritedTypes: [String]
 }

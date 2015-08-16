@@ -8,13 +8,11 @@
 
 import Foundation
 
-class SwiftEnumElement : SwiftDocumentType
+class SwiftEnumElement : SwiftDocumentType, Documentable
 {
-	var documentation: String
-	{
-		return ""
-	}
-	
+	var key: String { return "MGSwiftEnumElement" }
+	var defaultText: String { return "<#Description of #$0 #>" }
+
 	var names : [String]
 	var kind = SwiftDeclarationKind.Enumcase
 	
@@ -41,5 +39,29 @@ class SwiftEnumElement : SwiftDocumentType
 			}
 			names.append(name)
 		}
+	}
+
+	var availableTypes: [String: (String, DocumentableType)]
+	{
+		return ["#$0" : ("Elements", .Array)]
+	}
+	func stringForToken(token: String) -> String?
+	{
+		return nil
+	}
+	
+	func arrayForToken(token: String) -> [String]?
+	{
+		guard token == "#$0"
+		else
+		{
+			return nil
+		}
+		return names
+	}
+	
+	func boolForToken(token: String) -> Bool?
+	{
+		return nil
 	}
 }

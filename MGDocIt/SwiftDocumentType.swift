@@ -10,12 +10,12 @@ import Foundation
 
 protocol SwiftDocumentType : CustomStringConvertible
 {
-	var documentation: String { get }
 	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
+	func documentationWithIndentation(indentation: String) -> String
 }
 extension SwiftDocumentType
 {
-	var description: String { return documentation }
+	var description: String { return documentationWithIndentation("") }
 }
 
 @warn_unused_result func createType(dictionary: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String) -> SwiftDocumentType?

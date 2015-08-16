@@ -8,26 +8,48 @@
 
 import Foundation
 
-class SwiftNameOnlyType : SwiftDocumentType
+protocol SwiftNameOnlyType : SwiftDocumentType, Documentable
 {
-	var documentation: String
+	var kind: SwiftDeclarationKind { get }
+	var name: String { get }
+	
+	init(name: String, kind: SwiftDeclarationKind)
+}
+
+extension SwiftNameOnlyType
+{
+	var availableTypes : [String: (String, DocumentableType)]
 	{
-		fatalError("Attempting to access documentation from abstract type SwiftNameOnlyType.")
+		return ["#$0": ("Name", .String)]
 	}
 	
-	var name: String
+	func stringForToken(token: String) -> String?
+	{
+		guard token == "#$0"
+		else
+		{
+			return nil
+		}
+		return name
+	}
 	
-	var kind: SwiftDeclarationKind
+	func arrayForToken(token: String) -> [String]?
+	{
+		return nil
+	}
 	
-	required init(dict: XPCDictionary, map _: SyntaxMap, @noescape stringDelegate _: (start: Int, length: Int) -> String)
+	func boolForToken(token: String) -> Bool?
+	{
+		return nil
+	}
+	
+	init(dict: XPCDictionary, map _: SyntaxMap, @noescape stringDelegate _: (start: Int, length: Int) -> String)
 	{
 		guard let kind = SwiftDocKey.getKind(dict)
 		else
 		{
 			fatalError("No kind found.")
 		}
-		self.kind = kind
-		self.name = SwiftDocKey.getName(dict) ?? ""
+		self.init(name: SwiftDocKey.getName(dict) ?? "", kind: kind)
 	}
-
 }

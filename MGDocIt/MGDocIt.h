@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class MGDocIt;
@@ -19,11 +21,17 @@ static MGDocIt *sharedPlugin;
 + (instancetype)sharedPlugin;
 - (id)initWithBundle:(NSBundle *)plugin;
 
+-(CGKeyCode) keyCodeForChar:(const char) c;
+
+
 @property (nonatomic, strong, readonly) NSBundle *bundle;
 
 @property (atomic, strong) NSLock *lock;
 
 @property (nonatomic, strong, nullable) id eventMonitor;
+
+@property (nonatomic, strong, nullable) id mainMonitor;
+@property (atomic) BOOL lastCharTyped;
 
 @end
 

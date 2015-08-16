@@ -8,10 +8,13 @@
 
 import Foundation
 
-class SwiftTypealias : SwiftNameOnlyType
+private let typealiasKey = "MGSwiftTypealiasKey"
+private let typealiasDefaultText = "<#Description of typealias #$0 #>"
+
+struct SwiftTypealias : SwiftNameOnlyType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return typealiasKey }
+	var defaultText: String { return typealiasDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
 }

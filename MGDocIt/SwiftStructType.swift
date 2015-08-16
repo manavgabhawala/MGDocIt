@@ -8,10 +8,14 @@
 
 import Foundation
 
-class SwiftStruct : SwiftNameAndInheritedType
+private let structKey = "MGSwiftStructKey"
+private let structDefaultText = "/// <#Description of struct #$0 #>"
+
+struct SwiftStruct : SwiftNameAndInheritedType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return structKey }
+	var defaultText: String { return structDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
+	var inheritedTypes: [String]
 }

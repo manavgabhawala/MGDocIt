@@ -8,10 +8,14 @@
 
 import Foundation
 
-class SwiftVar : SwiftNameOnlyType
+
+private let varKey = "MGSwiftVarKey"
+private let varDefaultText = "<#Description of variable #$0#>"
+
+struct SwiftVar : SwiftNameOnlyType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return varKey }
+	var defaultText: String { return varDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
 }

@@ -11,6 +11,9 @@ import Foundation
 private let defaults = NSUserDefaults.standardUserDefaults()
 
 private let triggerStringKey = "MGTriggerString"
+private let prefixStringKey = "MGPrefixString"
+private let beginningStringKey = "MGBeginningString"
+private let endingStringKey = "MGEndingString"
 private let useDvorakKey = "MGDvorakLayout"
 
 @objc class MGDocItSetting: NSObject
@@ -48,5 +51,72 @@ private let useDvorakKey = "MGDvorakLayout"
 		{
 			defaults.setBool(newValue, forKey: useDvorakKey)
 		}
+	}
+	
+	class var linePrefix : String
+	{
+		get
+		{
+			guard let prefix = defaults.stringForKey(prefixStringKey)
+			else
+			{
+				self.linePrefix = "/// "
+				return "/// "
+			}
+			return prefix
+		}
+		set
+		{
+			defaults.setObject(newValue, forKey: prefixStringKey)
+		}
+	}
+	
+	class var beginningDoc : String
+	{
+		get
+		{
+			guard let beginning = defaults.stringForKey(beginningStringKey)
+			else
+			{
+				self.beginningDoc = ""
+				return ""
+			}
+			return beginning
+		}
+		set
+		{
+			defaults.setObject(newValue, forKey: beginningStringKey)
+		}
+	}
+	class var endingDoc: String
+	{
+		get
+		{
+			guard let ending = defaults.stringForKey(endingStringKey)
+			else
+			{
+				self.endingDoc = ""
+				return ""
+			}
+			return ending
+		}
+		set
+		{
+			defaults.setObject(newValue, forKey: endingStringKey)
+		}
+	}
+	
+	class func getCustomDocumentationForKey(key: String, defaultText: String) -> String
+	{
+		guard let docText = defaults.stringForKey(key)
+		else
+		{
+			return defaultText
+		}
+		return docText
+	}
+	class func setCustomDocumentationForKey(key: String, newDocText doc: String)
+	{
+		defaults.setObject(doc, forKey: key)
 	}
 }

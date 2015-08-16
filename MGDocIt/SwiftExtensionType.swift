@@ -8,10 +8,14 @@
 
 import Foundation
 
-class SwiftExtension : SwiftNameAndInheritedType
+private let extensionKey = "MGSwiftExtensionKey"
+private let extensionDefaultText = "// MARK: - <#$1>"
+
+struct SwiftExtension : SwiftNameAndInheritedType
 {
-	override var documentation: String
-	{
-		return ""
-	}
+	var key : String { return extensionKey }
+	var defaultText: String { return extensionDefaultText }
+	var name: String
+	var kind: SwiftDeclarationKind
+	var inheritedTypes: [String]
 }
