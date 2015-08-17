@@ -12,22 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (TextGetter)
 
 -(MGTextResult * _Nullable) textResultOfCurrentLineCurrentLocation:(NSInteger)location;
-//-(MGTextResult * _Nullable) textResultOfPreviousLineCurrentLocation:(NSInteger) location;
-//-(MGTextResult * _Nullable) textResultOfNextLineCurrentLocation:(NSInteger) location;
-
-//-(MGTextResult * _Nullable) textResultUntilNextString:(NSString *)findString currentLocation:(NSInteger)location;
-//
-//
-//-(MGTextResult * _Nullable) textResultWithPairOpenString:(NSString *)open
-//									  closeString:(NSString *)close
-//								  currentLocation:(NSInteger)location;
-//
-//-(MGTextResult * _Nullable) textResultMatchPartWithPairOpenString:(NSString *)open
-//											   closeString:(NSString *)close
-//										   currentLocation:(NSInteger)location;
-//
-//-(MGTextResult * _Nullable) textResultToEndOfFileCurrentLocation:(NSInteger)location;
-
 
 @end
 NS_ASSUME_NONNULL_END

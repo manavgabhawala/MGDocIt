@@ -15,11 +15,11 @@ enum DocumentableType
 	case Array
 }
 
-protocol Documentable
+protocol Documentable: DocumentType
 {
 	var key: String { get }
 	var defaultText: String { get }
-	var availableTypes: [String: (String, DocumentableType)] { get }
+	var availableTokens: [String: (String, DocumentableType)] { get }
 	func stringForToken(token: String) -> String?
 	func arrayForToken(token: String) -> [String]?
 	func boolForToken(token: String) -> Bool?
@@ -51,10 +51,10 @@ extension Documentable
 		}
 		
 		var docText = MGDocItSetting.getCustomDocumentationForKey(key, defaultText: defaultText)
-		for tokenIndex in 0..<availableTypes.count
+		for tokenIndex in 0..<availableTokens.count
 		{
 			let tokenStr = "#$\(tokenIndex)"
-			let token = availableTypes[tokenStr]!
+			let token = availableTokens[tokenStr]!
 			switch token.1
 			{
 			case .String:

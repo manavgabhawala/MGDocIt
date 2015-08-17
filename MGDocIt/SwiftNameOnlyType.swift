@@ -18,7 +18,7 @@ protocol SwiftNameOnlyType : SwiftDocumentType, Documentable
 
 extension SwiftNameOnlyType
 {
-	var availableTypes : [String: (String, DocumentableType)]
+	var availableTokens : [String: (String, DocumentableType)]
 	{
 		return ["#$0": ("Name", .String)]
 	}

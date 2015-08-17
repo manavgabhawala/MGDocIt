@@ -16,7 +16,7 @@ enum SwiftFunctionKind
 	case ConstructDestruct
 }
 
-final class SwiftFunction : SwiftDocumentType, Documentable
+struct SwiftFunction : SwiftDocumentType, Documentable
 {
 	var key: String
 	{
@@ -43,7 +43,7 @@ final class SwiftFunction : SwiftDocumentType, Documentable
 	var name: String
 	var kind: SwiftFunctionKind
 	
-	required init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
+	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
 	{
 		guard let kind = SwiftDocKey.getKind(dict)
 		else
@@ -134,7 +134,7 @@ final class SwiftFunction : SwiftDocumentType, Documentable
 		}
 	}
 	
-	var availableTypes: [String: (String, DocumentableType)]
+	var availableTokens: [String: (String, DocumentableType)]
 	{
 		return ["#$0" : ("Name", .String),
 				"#$1" : ("Parameter", .Array),

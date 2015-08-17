@@ -119,6 +119,7 @@ CGKeyCode keyCodeForChar(const char c)
 											 selector:@selector(textStorageDidChange:)
 												 name:NSTextDidChangeNotification
 											   object:nil];
+	
 	// Create menu items, initialize UI, etc.
     // Sample Menu Item:
 //    NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
@@ -146,15 +147,53 @@ CGKeyCode keyCodeForChar(const char c)
 {
 	if ([notif.object isKindOfClass:[NSTextView class]])
 	{
-		
-		NSTextView *textView = (NSTextView *)notif.object;
-		[self handleStorageChange:textView];
+		if (![[self.currentController valueForKey:@"window"] isEqual:[NSApp keyWindow]])
+		{
+			NSArray *workspaceWindowControllers = [NSClassFromString(@"IDEWorkspaceWindowController") valueForKey:@"workspaceWindowControllers"];
+			for (id controller in workspaceWindowControllers)
+			{
+				if ([[controller valueForKey:@"window"] isEqual:[NSApp keyWindow]])
+				{
+					self.currentController = controller;
+				}
+			}
+		}
+		NSURL *fileURL = [[self.currentController valueForKey:@"_lastObservedEditorDocument"] valueForKey:@"_fileURL"];
+		if (fileURL)
+		{
+			NSTextView *textView = (NSTextView *)notif.object;
+			[self handleStorageChange:fileURL textStorage:textView];
+		}
 	}
 }
 
 -(CGKeyCode) keyCodeForChar:(const char) c
 {
 	return keyCodeForChar(c);
+}
+
+
+-(NSArray<MGCXToken *> *) tokenizeTranslationUnit: (CXTranslationUnit) unit withRange: (CXSourceRange) range
+{
+	CXToken *tokens;
+	unsigned int numTokens;
+	clang_tokenize(unit, range, &tokens, &numTokens);
+	NSMutableArray<MGCXToken *> *array = [[NSMutableArray alloc] initWithCapacity:numTokens];
+	for (int i = 0; i < numTokens; ++i)
+	{
+		CXToken currentToken = *(tokens + i);
+		[array addObject:[[MGCXToken alloc] initWithToken:currentToken]];
+	}
+	if (numTokens)
+	{
+		clang_disposeTokens(unit, tokens, numTokens);
+	}
+	return array;
+}
+
+-(void) performPasteAction
+{
+	[NSApp sendAction:@selector(paste:) to:nil from:self];
 }
 
 @end

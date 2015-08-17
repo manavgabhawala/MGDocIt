@@ -22,29 +22,4 @@
 	return [self.textStorage.string textResultOfCurrentLineCurrentLocation: [self currentCursorLocation]];
 }
 
-//-(MGTextResult *) textResultOfPreviousLine
-//{
-//	return [self.textStorage.string textResultOfPreviousLineCurrentLocation:[self currentCursorLocation]];
-//}
-//-(MGTextResult *) textResultOfNextLine
-//{
-//	return [self.textStorage.string textResultOfNextLineCurrentLocation:[self currentCursorLocation]];
-//}
-
-//-(MGTextResult *) textResultUntilNextString:(NSString *)findString
-//{
-//	return [self.textStorage.string vv_textResultUntilNextString:findString currentLocation:[self currentCursorLocation]];
-//}
-//
-//-(MGTextResult *) textResultWithPairOpenString:(NSString *)open closeString:(NSString *)close
-//{
-//	return [self.textStorage.string vv_textResultWithPairOpenString:open closeString:close currentLocation:[self currentCursorLocation]];
-//}
-//
-//-(MGTextResult *) textResultToEndOfFile
-//{
-//	return [self.textStorage.string vv_textResultToEndOfFileCurrentLocation:[self currentCursorLocation]];
-//}
-
-
 @end

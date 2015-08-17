@@ -7,8 +7,8 @@
 //
 
 #import <AppKit/AppKit.h>
-
-
+#import "MGCXToken.h"
+#import "Index.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,8 +21,12 @@ static MGDocIt *sharedPlugin;
 + (instancetype)sharedPlugin;
 - (id)initWithBundle:(NSBundle *)plugin;
 
+-(void) performPasteAction;
 -(CGKeyCode) keyCodeForChar:(const char) c;
 
+@property (nonatomic, weak, nullable) NSObject * currentController;
+
+-(NSArray<MGCXToken *> *) tokenizeTranslationUnit: (CXTranslationUnit) unit withRange: (CXSourceRange) range;
 
 @property (nonatomic, strong, readonly) NSBundle *bundle;
 

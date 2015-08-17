@@ -19,7 +19,7 @@ protocol SwiftNameAndInheritedType : SwiftDocumentType, Documentable
 
 extension SwiftNameAndInheritedType
 {
-	var availableTypes : [String: (String, DocumentableType)]
+	var availableTokens : [String: (String, DocumentableType)]
 	{
 		return ["#$0": ("Name", .String), "#$1": ("Inherited Types", .Array)]
 	}

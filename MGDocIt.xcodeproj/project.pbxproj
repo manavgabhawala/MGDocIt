@@ -12,6 +12,9 @@
 		821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BF5541B7E6A7F00E299F1 /* SwiftDeclarationKind.swift */; };
 		821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */; };
 		823402A51B80762500945588 /* Documentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823402A41B80762500945588 /* Documentable.swift */; };
+		824FD8A31B81EE39009F59CE /* MGCXToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A21B81EE39009F59CE /* MGCXToken.m */; };
+		824FD8A51B825A68009F59CE /* ObjectiveCDocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */; };
+		824FD8A71B825B83009F59CE /* ObjectiveCInterfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */; };
 		8271FE151B7DCEE300669FE7 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE141B7DCEE300669FE7 /* AppKit.framework */; };
 		8271FE171B7DCEE300669FE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE161B7DCEE300669FE7 /* Foundation.framework */; };
 		8271FE1B1B7DCEE300669FE7 /* MGDocIt.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = 8271FE1A1B7DCEE300669FE7 /* MGDocIt.xcscheme */; };
@@ -52,6 +55,17 @@
 		821E4FEE1B7F1B7D0020030F /* KeyboardSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardSimulator.h; sourceTree = "<group>"; };
 		821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardSimulator.m; sourceTree = "<group>"; };
 		823402A41B80762500945588 /* Documentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Documentable.swift; sourceTree = "<group>"; };
+		824FD8991B80EDE4009F59CE /* BuildSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildSystem.h; sourceTree = "<group>"; };
+		824FD89A1B80EDE4009F59CE /* CXCompilationDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCompilationDatabase.h; sourceTree = "<group>"; };
+		824FD89B1B80EDE4009F59CE /* CXErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXErrorCode.h; sourceTree = "<group>"; };
+		824FD89C1B80EDE4009F59CE /* CXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXString.h; sourceTree = "<group>"; };
+		824FD89D1B80EDE4009F59CE /* Documentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Documentation.h; sourceTree = "<group>"; };
+		824FD89E1B80EDE4009F59CE /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
+		824FD89F1B80EDE4009F59CE /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		824FD8A11B81EE39009F59CE /* MGCXToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCXToken.h; sourceTree = "<group>"; };
+		824FD8A21B81EE39009F59CE /* MGCXToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCXToken.m; sourceTree = "<group>"; };
+		824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCDocumentType.swift; sourceTree = "<group>"; };
+		824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCInterfaceType.swift; sourceTree = "<group>"; };
 		8271FE111B7DCEE300669FE7 /* MGDocIt.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGDocIt.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8271FE141B7DCEE300669FE7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		8271FE161B7DCEE300669FE7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -152,6 +166,29 @@
 			name = "Name And Inherited";
 			sourceTree = "<group>";
 		};
+		824FD8A01B80EDE8009F59CE /* Clang */ = {
+			isa = PBXGroup;
+			children = (
+				824FD8991B80EDE4009F59CE /* BuildSystem.h */,
+				824FD89A1B80EDE4009F59CE /* CXCompilationDatabase.h */,
+				824FD89B1B80EDE4009F59CE /* CXErrorCode.h */,
+				824FD89C1B80EDE4009F59CE /* CXString.h */,
+				824FD89D1B80EDE4009F59CE /* Documentation.h */,
+				824FD89E1B80EDE4009F59CE /* Index.h */,
+				824FD89F1B80EDE4009F59CE /* Platform.h */,
+			);
+			name = Clang;
+			sourceTree = "<group>";
+		};
+		824FD8A81B825B87009F59CE /* ObjectiveCTypes */ = {
+			isa = PBXGroup;
+			children = (
+				824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */,
+				824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */,
+			);
+			name = ObjectiveCTypes;
+			sourceTree = "<group>";
+		};
 		8271FE081B7DCEE300669FE7 = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +225,8 @@
 				8271FE1C1B7DCEE300669FE7 /* MGDocIt.h */,
 				8271FE1D1B7DCEE300669FE7 /* MGDocIt.m */,
 				82F176531B7E0734008C1E29 /* MGDocIt.swift */,
+				824FD8A11B81EE39009F59CE /* MGCXToken.h */,
+				824FD8A21B81EE39009F59CE /* MGCXToken.m */,
 				821E4FF11B7F1B830020030F /* Keyboard */,
 				82F1764D1B7E03DA008C1E29 /* Model */,
 				82F1764C1B7E03D0008C1E29 /* Categories */,
@@ -237,8 +276,10 @@
 		82F1764D1B7E03DA008C1E29 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				824FD8A01B80EDE8009F59CE /* Clang */,
 				82EB00E81B7F80C60022016F /* SwiftTypes */,
 				823402A31B8075C700945588 /* XPCParsing */,
+				824FD8A81B825B87009F59CE /* ObjectiveCTypes */,
 				82F176461B7DE063008C1E29 /* MGTextResult.h */,
 				82F176471B7DE063008C1E29 /* MGTextResult.m */,
 			);
@@ -322,13 +363,16 @@
 				82F1764B1B7E01D0008C1E29 /* NSString+TextGetter.m in Sources */,
 				8271FE1E1B7DCEE300669FE7 /* MGDocIt.m in Sources */,
 				82F176541B7E0734008C1E29 /* MGDocIt.swift in Sources */,
+				824FD8A71B825B83009F59CE /* ObjectiveCInterfaceType.swift in Sources */,
 				82EB00F91B7FC4DB0022016F /* SwiftTypealiasType.swift in Sources */,
 				82EB00F21B7FC3EF0022016F /* SwiftStructType.swift in Sources */,
 				82EB00FF1B7FCAA60022016F /* SwiftEnumElementType.swift in Sources */,
 				821BF5531B7E613200E299F1 /* SyntaxKind.swift in Sources */,
+				824FD8A51B825A68009F59CE /* ObjectiveCDocumentType.swift in Sources */,
 				82F176581B7E48DD008C1E29 /* SyntaxToken.swift in Sources */,
 				82EB00F01B7FC3630022016F /* SwiftNameOnlyType.swift in Sources */,
 				82EB00F71B7FC4C60022016F /* SwiftVarType.swift in Sources */,
+				824FD8A31B81EE39009F59CE /* MGCXToken.m in Sources */,
 				82E16B411B7E51350087BD2C /* SwiftDocKey.swift in Sources */,
 				82F1765A1B7E4951008C1E29 /* File.swift in Sources */,
 				82F176481B7DE063008C1E29 /* MGTextResult.m in Sources */,

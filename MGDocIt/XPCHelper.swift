@@ -50,9 +50,6 @@ public typealias XPCArray = [XPCRepresentable]
 /// Type alias to simplify referring to a Dictionary of XPCRepresentable objects with String keys.
 public typealias XPCDictionary = [String: XPCRepresentable]
 
-import Foundation
-import XPC
-
 // MARK: General
 
 /**
@@ -513,6 +510,15 @@ func findAllSubstructures(dict: XPCDictionary?, withCursorPosition cursor: Int) 
 
 extension String
 {
+	init?(_ cxStr: CXString)
+	{
+		guard let str = String.fromCString(clang_getCString(cxStr))
+		else
+		{
+			return nil
+		}
+		self.init(str)
+	}
 	mutating func removeRange(range: Range<Index>)
 	{
 		self.replaceRange(range, with: "")

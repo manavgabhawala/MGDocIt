@@ -8,17 +8,22 @@
 
 import Foundation
 
-protocol SwiftDocumentType : CustomStringConvertible
+protocol DocumentType
 {
-	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
 	func documentationWithIndentation(indentation: String) -> String
 }
+
+protocol SwiftDocumentType : DocumentType, CustomStringConvertible
+{
+	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
+}
+
 extension SwiftDocumentType
 {
 	var description: String { return documentationWithIndentation("") }
 }
 
-@warn_unused_result func createType(dictionary: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String) -> SwiftDocumentType?
+@warn_unused_result func createSwiftType(dictionary: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String) -> SwiftDocumentType?
 {
 	guard let kind = SwiftDocKey.getKind(dictionary)
 	else

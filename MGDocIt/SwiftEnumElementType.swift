@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SwiftEnumElement : SwiftDocumentType, Documentable
+struct SwiftEnumElement : SwiftDocumentType, Documentable
 {
 	var key: String { return "MGSwiftEnumElement" }
 	var defaultText: String { return "<#Description of #$0 #>" }
@@ -16,7 +16,7 @@ class SwiftEnumElement : SwiftDocumentType, Documentable
 	var names : [String]
 	var kind = SwiftDeclarationKind.Enumcase
 	
-	required init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
+	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
 	{
 		guard kind == SwiftDocKey.getKind(dict), let subs = SwiftDocKey.getSubstructure(dict)
 		else
@@ -41,7 +41,7 @@ class SwiftEnumElement : SwiftDocumentType, Documentable
 		}
 	}
 
-	var availableTypes: [String: (String, DocumentableType)]
+	var availableTokens: [String: (String, DocumentableType)]
 	{
 		return ["#$0" : ("Elements", .Array)]
 	}
