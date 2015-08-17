@@ -10,17 +10,20 @@ import Foundation
 
 protocol ObjectiveCDocumentType : DocumentType, CustomStringConvertible
 {
-	init(cursor: CXCursor, tokens: [MGCXToken], translationUnit: CXTranslationUnit)
+	init(cursor: CXCursor, tokens: [MGCXToken], translationUnit tu: CXTranslationUnit)
+}
+extension ObjectiveCDocumentType
+{
+	var description: String { return documentationWithIndentation("") }
 }
 
-
-@warn_unused_result func createObjectiveCType(cursor: CXCursor, kind: CXCursorKind, tokens: [MGCXToken], translationUnit tu: CXTranslationUnit) -> ObjectiveCDocumentType?
+@warn_unused_result func createObjectiveCType(kind: CXCursorKind) -> ObjectiveCDocumentType.Type?
 {
 	switch kind
 	{
 	case CXCursor_ObjCInterfaceDecl:
-		let objcInterface = ObjectiveCInterface(cursor: cursor, tokens: tokens, translationUnit: tu)
-		print(objcInterface)
+		return ObjectiveCInterface.self
+	case CXCursor_ObjCCategoryDecl:
 		return nil
 	default:
 		return nil

@@ -9,7 +9,7 @@
 import Foundation
 
 private let classKey = "MGSwiftClassKey"
-private let classDefaultText = "/// <#Description of class #$0 #>"
+private let classDefaultText = "<#Description of class #$0 #>"
 
 struct SwiftClass : SwiftNameAndInheritedType
 {

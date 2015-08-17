@@ -9,7 +9,7 @@
 import Foundation
 
 private let enumKey = "MGSwiftEnumKey"
-private let enumDefaultText = "/// <#Description of enum #$0 #>"
+private let enumDefaultText = "<#Description of enum #$0 #>"
 
 struct SwiftEnum : SwiftNameAndInheritedType
 {

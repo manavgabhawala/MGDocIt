@@ -9,7 +9,7 @@
 import Foundation
 
 private let protocolKey = "MGSwiftProtocolKey"
-private let protocolDefaultText = "/// <#Description of protocol #$0 #>"
+private let protocolDefaultText = "<#Description of protocol #$0 #>"
 
 struct SwiftProtocol : SwiftNameAndInheritedType
 {

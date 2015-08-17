@@ -41,18 +41,6 @@ private let useDvorakKey = "MGDvorakLayout"
 		}
 	}
 	
-	class var useDvorakLayout: Bool
-	{
-		get
-		{
-			return defaults.boolForKey(useDvorakKey)
-		}
-		set
-		{
-			defaults.setBool(newValue, forKey: useDvorakKey)
-		}
-	}
-	
 	class var linePrefix : String
 	{
 		get

@@ -40,16 +40,14 @@ extension MGDocIt
 			// No current line
 			return
 		}
-		let fullCurrentLine = currentLine.string
 		currentLine.string.trimWhitespaceOnLeft()
 		let trigger = MGDocItSetting.triggerString
 		let triggerLength = trigger.characters.count
 		guard currentLine.string.characters.count >= triggerLength
-			else
+		else
 		{
 			return
 		}
-		
 		guard currentLine.string == trigger
 		else
 		{
@@ -60,6 +58,7 @@ extension MGDocIt
 		
 		let textStorageStr = textStorage.textStorage!.string
 		let str = textStorageStr.stringByRemovingRange(advance(textStorageStr.startIndex, cursorPos), end: advance(textStorageStr.startIndex, cursorPos + triggerLength))
+		
 		// TODO: Add playground support
 		if file.pathExtension == "swift"
 		{
@@ -69,7 +68,6 @@ extension MGDocIt
 		{
 			handleNonSwiftStorageChange(textStorage, parsedString: str, cursorPosition: cursorPos)
 		}
-		
 	}
 	
 	func handleSwiftStorageChange(textStorage: NSTextView, parsedString str: String, cursorPosition cursorPos: Int)
@@ -140,32 +138,20 @@ extension MGDocIt
 				return
 			}
 			
-			guard let type = createSwiftType(structure, map: map, stringDelegate: {
-				let startLoc = advance(str.startIndex, $0)
-				let range = Range<String.Index>(start: startLoc, end: advance(startLoc, $1))
-				return str.substringWithRange(range)
-			})
+			guard let type = createSwiftType(SwiftDocKey.getKind(structure))
 			else
 			{
 				return
 			}
 			
-			let structOffset = advance(str.startIndex, Int(SwiftDocKey.getOffset(structure)!))
-			let indentPoint = str.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: NSStringCompareOptions.BackwardsSearch, range: Range<String.Index>(start: str.startIndex, end: structOffset))
-			let fullIndentString = str.substringWithRange(Range<String.Index>(start: indentPoint?.endIndex ?? structOffset, end: structOffset))
-			var endIndex = fullIndentString.startIndex
-			for char in fullIndentString.unicodeScalars
-			{
-				guard NSCharacterSet.whitespaceCharacterSet().longCharacterIsMember(char.value)
-				else
-				{
-					break
-				}
-				endIndex = endIndex.successor()
-			}
-			let indentString = fullIndentString.substringWithRange(Range<String.Index>(start: fullIndentString.startIndex, end: endIndex))
+			let doc = type.init(dict: structure, map: map, stringDelegate: {
+				let startLoc = advance(str.startIndex, $0)
+				let range = Range<String.Index>(start: startLoc, end: advance(startLoc, $1))
+				return str.substringWithRange(range)
+			})
+			let indentString = self.calculateIndentString(fromString: str, withOffset: Int(SwiftDocKey.getOffset(structure)!))
 			
-			self.pasteHeaderDocFor(type, intoTextStorage: textStorage, withIndentation: indentString)
+			self.pasteHeaderDocFor(doc, intoTextStorage: textStorage, withIndentation: indentString)
 		})
 	}
 	
@@ -216,7 +202,6 @@ extension MGDocIt
 			var topCursor = clang_getTranslationUnitCursor(unit)
 
 			clang_visitChildrenWithBlock(topCursor) { cursor, parent in
-				print(String(clang_getCursorSpelling(cursor)))
 				guard Bool(Int(clang_Location_isFromMainFile(clang_getCursorLocation(cursor))))
 				else
 				{
@@ -264,17 +249,43 @@ extension MGDocIt
 			{
 				return
 			}
-			let tu = clang_Cursor_getTranslationUnit(selected)
-			let tokens = self.tokenizeTranslationUnit(tu, withRange: clang_getCursorExtent(selected))
-			guard let obj = createObjectiveCType(selected, kind: kind, tokens: tokens, translationUnit: tu)
+			// By only using the type we are saving on creating the tokens spuriously.
+			guard let type = createObjectiveCType(kind)
 			else
 			{
 				return
 			}
+			let tu = clang_Cursor_getTranslationUnit(selected)
+			let tokens = self.tokenizeTranslationUnit(tu, withRange: clang_getCursorExtent(selected))
+			var cursorOff : UInt32 = 0
+			clang_getSpellingLocation(clang_getCursorLocation(selected), nil, nil, nil, &cursorOff)
+			
+			let doc = type.init(cursor: selected, tokens: tokens, translationUnit: tu)
+			let indentString = self.calculateIndentString(fromString: str, withOffset: Int(cursorOff))
+			
+			self.pasteHeaderDocFor(doc, intoTextStorage: textStorage, withIndentation: indentString)
 		})
 	}
 	
-	func pasteHeaderDocFor(type: DocumentType, intoTextStorage textStorage: NSTextView, withIndentation indentString: String)
+	@warn_unused_result func calculateIndentString(fromString str: String, withOffset offset: Int) -> String
+	{
+		let structOffset = advance(str.startIndex, offset)
+		let indentPoint = str.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: NSStringCompareOptions.BackwardsSearch, range: Range<String.Index>(start: str.startIndex, end: structOffset))
+		let fullIndentString = str.substringWithRange(Range<String.Index>(start: indentPoint?.endIndex ?? structOffset, end: structOffset))
+		var endIndex = fullIndentString.startIndex
+		for char in fullIndentString.unicodeScalars
+		{
+			guard NSCharacterSet.whitespaceCharacterSet().longCharacterIsMember(char.value)
+			else
+			{
+				break
+			}
+			endIndex = endIndex.successor()
+		}
+		return fullIndentString.substringWithRange(Range<String.Index>(start: fullIndentString.startIndex, end: endIndex))
+	}
+	
+	func pasteHeaderDocFor(document: DocumentType, intoTextStorage textStorage: NSTextView, withIndentation indentString: String)
 	{
 		dispatch_sync(dispatch_get_main_queue(), {
 			let pasteboard = NSPasteboard.generalPasteboard()
@@ -282,7 +293,7 @@ extension MGDocIt
 			
 			pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
 			
-			let docString = type.documentationWithIndentation(indentString)
+			let docString = document.documentationWithIndentation(indentString)
 			
 			pasteboard.setString(docString, forType: NSPasteboardTypeString)
 			
@@ -301,12 +312,8 @@ extension MGDocIt
 						KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Tab)
 					}
 					KeyboardSimulator.defaultSimulator().endKeyboardEvents()
-					return event
 				}
-				else
-				{
-					return event
-				}
+				return event
 			})
 			KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Delete, withModifierCommand: true, alt: false, shift: false, control: false)
 		})

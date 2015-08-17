@@ -8,28 +8,17 @@
 
 import Foundation
 
-struct ObjectiveCInterface
+private let interfaceKey = "MGObjcInterface"
+private let interfaceDefaultText = "<#Description of class #$0#>"
+
+struct ObjectiveCInterface : ObjectiveCNameAndInheritedType
 {
-	init(cursor: CXCursor, tokens: [MGCXToken], translationUnit: CXTranslationUnit)
+	var key: String { return interfaceKey }
+	var defaultText: String
 	{
-		var endOffset: UInt32 = 0
-		
-		clang_getSpellingLocation(clang_getRangeEnd(clang_getCursorExtent(cursor)), nil, nil , nil, &endOffset)
-			
-		clang_visitChildrenWithBlock(cursor) { child, _ in
-			clang_getSpellingLocation(clang_getRangeStart(clang_getCursorExtent(child)), nil, nil , nil, &endOffset)
-			return CXChildVisit_Break
-		}
-		for t in tokens
-		{
-			var tokenStart: UInt32 = 0
-			clang_getSpellingLocation(clang_getTokenLocation(translationUnit, t.token), nil, nil, nil, &tokenStart)
-			guard tokenStart < endOffset
-			else
-			{
-				break
-			}
-		}
-		
+		return interfaceDefaultText
 	}
+	
+	var name: String
+	var inheritedTypes = [String]()
 }

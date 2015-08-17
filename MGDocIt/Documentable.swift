@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The types that are documentable. These are the only kinds of tokens that the `Documentable` protocol can parse and render properly.
 enum DocumentableType
 {
 	case String
@@ -15,6 +16,13 @@ enum DocumentableType
 	case Array
 }
 
+/// A protocol which types conform to, to be able to be documented.
+protocol DocumentType
+{
+	func documentationWithIndentation(indentation: String) -> String
+}
+
+/// A protocol which if types conform to can handle parsing, replacing tokens and using custom user defined text.
 protocol Documentable: DocumentType
 {
 	var key: String { get }

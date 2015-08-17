@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol DocumentType
-{
-	func documentationWithIndentation(indentation: String) -> String
-}
 
 protocol SwiftDocumentType : DocumentType, CustomStringConvertible
 {
@@ -23,9 +19,9 @@ extension SwiftDocumentType
 	var description: String { return documentationWithIndentation("") }
 }
 
-@warn_unused_result func createSwiftType(dictionary: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String) -> SwiftDocumentType?
+@warn_unused_result func createSwiftType(kind: SwiftDeclarationKind?) -> SwiftDocumentType.Type?
 {
-	guard let kind = SwiftDocKey.getKind(dictionary)
+	guard let kind = kind
 	else
 	{
 		return nil
@@ -35,23 +31,23 @@ extension SwiftDocumentType
 	case .FunctionFree,
 		 .FunctionMethodClass, 		.FunctionMethodInstance, 	.FunctionMethodStatic,
 		 .FunctionConstructor, 		.FunctionDestructor:
-		return SwiftFunction(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftFunction.self
 	case .Extension, .ExtensionEnum, .ExtensionProtocol, .ExtensionClass, .ExtensionStruct:
-		return SwiftExtension(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftExtension.self
 	case .Class:
-		return SwiftClass(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftClass.self
 	case .Protocol:
-		return SwiftProtocol(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftProtocol.self
 	case .Struct:
-		return SwiftStruct(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftStruct.self
 	case .Typealias:
-		return SwiftTypealias(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftTypealias.self
 	case .VarClass, .VarStatic, .VarInstance:
-		return SwiftVar(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftVar.self
 	case .Enum:
-		return SwiftEnum(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftEnum.self
 	case .Enumcase:
-		return SwiftEnumElement(dict: dictionary, map: map, stringDelegate: stringDelegate)
+		return SwiftEnumElement.self
 	default:
 		return nil
 	}

@@ -9,7 +9,7 @@
 import Foundation
 
 private let structKey = "MGSwiftStructKey"
-private let structDefaultText = "/// <#Description of struct #$0 #>"
+private let structDefaultText = "<#Description of struct #$0 #>"
 
 struct SwiftStruct : SwiftNameAndInheritedType
 {
