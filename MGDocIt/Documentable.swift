@@ -19,17 +19,42 @@ enum DocumentableType
 /// A protocol which types conform to, to be able to be documented.
 protocol DocumentType
 {
+	/// The documentation for a particular type.
+	///
+	/// - Parameter indentation: This is a parameter of type `String`. The indentation to use while creating the documentation
+	/// - Returns: The complete documentation string.
 	func documentationWithIndentation(indentation: String) -> String
 }
 
 /// A protocol which if types conform to can handle parsing, replacing tokens and using custom user defined text.
 protocol Documentable: DocumentType
 {
+	/// The key for the type which is used in conjunction with NSUserDefaults to set a custom string.
 	var key: String { get }
+	/// The default text to use if no user defined type is available.
 	var defaultText: String { get }
+	/// A dictionary of tokens that can be used in conjunction with this type. Each value of the dictionary is a tuple with a user displayable name and the type that the key returns.
 	var availableTokens: [String: (String, DocumentableType)] { get }
+	
+	/// When an availableToken returns DocumentableType.String, this function will be invoked with that token to get the dynamic value represented for that token for the doc.
+	///
+	/// - Parameter token: This is a parameter of type `String`. The token passed through available tokens.
+	///
+	/// - Returns: A string represented by the token. Nil if the token doesn't represent a String
 	func stringForToken(token: String) -> String?
+	
+	/// When an availableToken returns DocumentableType.Array, this function will be invoked with that token to get the dynamic value represented for that token for the doc.
+	///
+	/// - Parameter token: This is a parameter of type `String`. The token passed through available tokens.
+	///
+	/// - Returns: An array of strings represented by the token. Nil if the token doesn't represent an array
 	func arrayForToken(token: String) -> [String]?
+	
+	/// When an availableToken returns DocumentableType.Bool, this function will be invoked with that token to get the dynamic value represented for that token for the doc.
+	///
+	/// - Parameter token: This is a parameter of type `String`. The token passed through available tokens.
+	///
+	/// - Returns: A boolean represented by the token. Nil if the token doesn't represent a Bool
 	func boolForToken(token: String) -> Bool?
 }
 extension Documentable

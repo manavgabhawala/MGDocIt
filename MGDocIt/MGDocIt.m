@@ -12,7 +12,7 @@
 #import "MGDocIt-Swift.h"
 #include <Carbon/Carbon.h> /* For kVK_ constants, and TIS functions. */
 
-/* Returns string representation of key, if it is printable.
+/** Returns string representation of key, if it is printable.
  * Ownership follows the Create Rule; that is, it is the caller's
  * responsibility to release the returned object. */
 CFStringRef createStringForKey(CGKeyCode keyCode)
@@ -43,7 +43,7 @@ CFStringRef createStringForKey(CGKeyCode keyCode)
 	return CFStringCreateWithCharacters(kCFAllocatorDefault, chars, 1);
 }
 
-/* Returns key code for given character via the above function, or UINT16_MAX
+/** Returns key code for given character via the above function, or UINT16_MAX
  * on error. */
 CGKeyCode keyCodeForChar(const char c)
 {
@@ -87,6 +87,7 @@ CGKeyCode keyCodeForChar(const char c)
 @interface MGDocIt()
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
+@property (nonatomic, weak, nullable) NSObject * currentController;
 
 @end
 
@@ -113,8 +114,9 @@ CGKeyCode keyCodeForChar(const char c)
 
 - (void)didApplicationFinishLaunchingNotification:(NSNotification*)noti
 {
-    //removeObserver
+    // removeObserver
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidFinishLaunchingNotification object:nil];
+	// Now inject code into this process using nc observers.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(textStorageDidChange:)
 												 name:NSTextDidChangeNotification
@@ -131,7 +133,6 @@ CGKeyCode keyCodeForChar(const char c)
 //        [[menuItem submenu] addItem:actionMenuItem];
 //    }
 }
-
 
 - (void)dealloc
 {

@@ -11,6 +11,11 @@ import Carbon.HIToolbox
 
 extension MGDocIt
 {
+	/// Call this function when the text's storage has changed. This function handles accepting a trigger and then determines which sub handler to invoke based on the language
+	///
+	/// - Parameter file: This is a parameter of type `NSURL`. The file that is currently open in the editor. This is used to determine the sub handler to call for the language.
+	/// - Parameter textStorage: This is a parameter of type `NSTextView`. The TextView whose storage was changed.
+	///
 	func handleStorageChange(file: NSURL, textStorage: NSTextView)
 	{
 		if mainMonitor == nil
@@ -70,6 +75,13 @@ extension MGDocIt
 		}
 	}
 	
+	/// A sub handler that handles changes for swift source code changes. It communicates with SourceKit to get the AST.
+	///
+	/// - Parameter textStorage: This is a parameter of type `NSTextView`. The storage who was changed. This parameter is used to pass to the `pasteHeaderDocFor:` function.
+	/// - Parameter str: This is a parameter of type `String`. The string which is swift source code that should be parsed.
+	/// - Parameter cursorPos: This is a parameter of type `Int`. The current position of the cursor offset for the removal of the newly inserted trigger.
+	///
+	///
 	func handleSwiftStorageChange(textStorage: NSTextView, parsedString str: String, cursorPosition cursorPos: Int)
 	{
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
@@ -155,6 +167,13 @@ extension MGDocIt
 		})
 	}
 	
+	/// A sub handler that handles changes for any non-swift source code changes like C, C++ and ObjC. It communicates with clang and the llvm to get the AST.
+	///
+	/// - Parameter textStorage: This is a parameter of type `NSTextView`. The storage who was changed. This parameter is used to pass to the `pasteHeaderDocFor:` function.
+	/// - Parameter str: This is a parameter of type `String`. The string which is C, C++ or ObjC source code that should be parsed.
+	/// - Parameter cursorPos: This is a parameter of type `Int`. The current position of the cursor offset for the removal of the newly inserted trigger.
+	///
+	///
 	func handleNonSwiftStorageChange(textStorage: NSTextView, parsedString str: String, cursorPosition cursorPos: Int)
 	{
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
@@ -267,6 +286,12 @@ extension MGDocIt
 		})
 	}
 	
+	/// This function handles calculating an indent string for any source code.
+	///
+	/// - Parameter str: This is a parameter of type `String`. The string from which we need to calculate the indentation. This is the entire source code representation.
+	/// - Parameter offset: This is a parameter of type `Int`. The offset is the structure which is being documented's absolute offset in the file.
+	///
+	/// - Returns: The indent string. This string will either be empty or full of ` ` and `\t` characters. No characters not in the `NSCharacterSet.whitespaceCharacterSet()` will be included.
 	@warn_unused_result func calculateIndentString(fromString str: String, withOffset offset: Int) -> String
 	{
 		let structOffset = advance(str.startIndex, offset)
@@ -285,6 +310,11 @@ extension MGDocIt
 		return fullIndentString.substringWithRange(Range<String.Index>(start: fullIndentString.startIndex, end: endIndex))
 	}
 	
+	/// Paste's the header documentation into the text storage with the indentation and handles everything from deleting the trigger string, getting the header doc and pasting it in, resetting the pasteboard and then tabbing into the first tokenized field if one exists.
+	///
+	/// - Parameter document: This is a parameter of type `DocumentType`. The document type using which the documentation string can be calculated.
+	/// - Parameter textStorage: This is a parameter of type `NSTextView`. The text view into which to paste the string and then tab into the first tokenizable field.
+	/// - Parameter indentString: This is a parameter of type `String`. The indentation that should be applied to every line before pasting it in. This is calcualated by the document by using the `documentationWithIndentation:` method.
 	func pasteHeaderDocFor(document: DocumentType, intoTextStorage textStorage: NSTextView, withIndentation indentString: String)
 	{
 		dispatch_sync(dispatch_get_main_queue(), {

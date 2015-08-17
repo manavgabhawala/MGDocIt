@@ -9,6 +9,7 @@
 import Foundation
 protocol NameType : Documentable
 {
+	/// The name of the document type.
 	var name: String { get }
 }
 

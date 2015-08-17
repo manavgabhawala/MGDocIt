@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol NameAndInheritedType: Documentable
+protocol NameAndInheritedType: NameType
 {
-	var name: String { get }
+	/// An array of the types that are inherited by this doc type.
 	var inheritedTypes: [String] { get }
 }
 extension NameAndInheritedType
@@ -18,16 +18,6 @@ extension NameAndInheritedType
 	var availableTokens : [String: (String, DocumentableType)]
 	{
 		return ["#$0": ("Name", .String), "#$1": ("Inherited Types", .Array)]
-	}
-	
-	func stringForToken(token: String) -> String?
-	{
-		guard token == "#$0"
-			else
-		{
-			return nil
-		}
-		return name
 	}
 	
 	func arrayForToken(token: String) -> [String]?
@@ -38,10 +28,5 @@ extension NameAndInheritedType
 			return nil
 		}
 		return inheritedTypes
-	}
-	
-	func boolForToken(token: String) -> Bool?
-	{
-		return nil
 	}
 }
