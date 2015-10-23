@@ -91,100 +91,98 @@ extension Documentable
 			switch token.1
 			{
 			case .String:
-				guard let replaceRange = docText.rangeOfString(tokenStr), let replaceWith = stringForToken(tokenStr)
-					else
+				while let replaceRange = docText.rangeOfString(tokenStr), let replaceWith = stringForToken(tokenStr)
 				{
-					continue
+					docText.replaceRange(replaceRange, with: replaceWith)
 				}
-				docText.replaceRange(replaceRange, with: replaceWith)
+				continue
 			case .Bool:
 				
 				let startStr = "if\(tokenStr)"
 				let elseStr = "else\(tokenStr)"
 				let endStr = "end\(tokenStr)"
+				while let boolValue = boolForToken(tokenStr), let startRange = docText.rangeOfString(startStr), let endRange = docText.rangeOfString(endStr)
+				{
+					if let half = docText.rangeOfString(elseStr)
+					{
+						if boolValue
+						{
+							docText.removeRange(half.startIndex, end: endRange.endIndex)
+							docText.removeRange(startRange)
+						}
+						else
+						{
+							docText.removeRange(endRange)
+							docText.removeRange(startRange.startIndex, end: half.endIndex)
+						}
+					}
+					else
+					{
+						if boolValue
+						{
+							docText.removeRange(endRange)
+							docText.removeRange(startRange)
+						}
+						else
+						{
+							docText.removeRange(startRange.startIndex, end: endRange.endIndex)
+						}
+					}
+
+				}
+				continue
 				
-				guard let boolValue = boolForToken(tokenStr), let startRange = docText.rangeOfString(startStr), let endRange = docText.rangeOfString(endStr)
-					else
-				{
-					continue
-				}
-				
-				if let half = docText.rangeOfString(elseStr)
-				{
-					if boolValue
-					{
-						docText.removeRange(half.startIndex, end: endRange.endIndex)
-						docText.removeRange(startRange)
-					}
-					else
-					{
-						docText.removeRange(endRange)
-						docText.removeRange(startRange.startIndex, end: half.endIndex)
-					}
-				}
-				else
-				{
-					if boolValue
-					{
-						docText.removeRange(endRange)
-						docText.removeRange(startRange)
-					}
-					else
-					{
-						docText.removeRange(startRange.startIndex, end: endRange.endIndex)
-					}
-				}
 			case .Array:
-				guard let arrayValue = arrayForToken(tokenStr), let tokenRange = docText.rangeOfString(tokenStr)
+				while let arrayValue = arrayForToken(tokenStr), let tokenRange = docText.rangeOfString(tokenStr)
+				{
+					if let singleTokenRange = docText.rangeOfString("<\(tokenStr)>")
+					{
+						// Specially wrapped in < > then expand in place
+						if arrayValue.count == 0
+						{
+							docText.replaceRange(singleTokenRange, with: "<#Description#>")
+						}
+						else
+						{
+							let str = arrayValue.reduce("", combine: { "\($0)\($1), " })
+							let replaceTok = str.substringToIndex(advance(str.endIndex, -2))
+							docText.replaceRange(singleTokenRange, with: "\(replaceTok)")
+						}
+						continue
+					}
+					let (line, lineRange) = docText.lineContainingRange(tokenRange)
+					if tokenStr == "#$1" && line.rangeOfString("#$2") != nil, let typeArrayValue = arrayForToken("#$2")
+					{
+						let lineTemplate = line.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
+						// Special function case
+						assert(arrayValue.count == typeArrayValue.count)
+						var textToReplaceWith = ""
+						if arrayValue.count > 0 && !docText.isEmpty
+						{
+							textToReplaceWith += "\n"
+						}
+						for (i, elem) in arrayValue.enumerate()
+						{
+							textToReplaceWith += "\n"
+							textToReplaceWith += lineTemplate.stringByReplacingOccurrencesOfString(tokenStr, withString: elem).stringByReplacingOccurrencesOfString("#$2", withString: typeArrayValue[i])
+						}
+						if !textToReplaceWith.isEmpty
+						{
+							textToReplaceWith += "\n"
+						}
+						docText.replaceRange(lineRange, with: textToReplaceWith)
+					}
 					else
-				{
-					continue
+					{
+						let initial = docText.isEmpty ? "" : "\n"
+						let newString = arrayValue.reduce(initial, combine: { "\($0)\(line.stringByReplacingOccurrencesOfString(tokenStr, withString: $1))\n" })
+						docText.replaceRange(lineRange, with: newString)
+					}
 				}
-				if let singleTokenRange = docText.rangeOfString("<\(tokenStr)>")
-				{
-					// Specially wrapped in < > then expand in place
-					if arrayValue.count == 0
-					{
-						docText.replaceRange(singleTokenRange, with: "<#Description#>")
-					}
-					else
-					{
-						let str = arrayValue.reduce("", combine: { "\($0)\($1), " })
-						let replaceTok = str.substringToIndex(advance(str.endIndex, -2))
-						docText.replaceRange(singleTokenRange, with: "\(replaceTok)")
-					}
-					continue
-				}
-				let (line, lineRange) = docText.lineContainingRange(tokenRange)
-				if tokenStr == "#$1" && line.rangeOfString("#$2") != nil, let typeArrayValue = arrayForToken("#$2")
-				{
-					let lineTemplate = line.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-					// Special function case
-					assert(arrayValue.count == typeArrayValue.count)
-					var textToReplaceWith = ""
-					if arrayValue.count > 0
-					{
-						textToReplaceWith += "\n"
-					}
-					for (i, elem) in arrayValue.enumerate()
-					{
-						textToReplaceWith += "\n"
-						textToReplaceWith += lineTemplate.stringByReplacingOccurrencesOfString(tokenStr, withString: elem).stringByReplacingOccurrencesOfString("#$2", withString: typeArrayValue[i])
-					}
-					if !textToReplaceWith.isEmpty
-					{
-						textToReplaceWith += "\n\n"
-					}
-					docText.replaceRange(lineRange, with: textToReplaceWith)
-				}
-				else
-				{
-					let newString = arrayValue.reduce("", combine: { "\($0)\n\(line.stringByReplacingOccurrencesOfString(tokenStr, withString: $1))" })
-					let textToReplaceWith = newString.isEmpty ? newString : newString + "\n"
-					docText.replaceRange(lineRange, with: textToReplaceWith)
-				}
+				continue
 			}
 		}
+		docText = docText.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let prefix : String
 		if docText.rangeOfString("// ") == nil
 		{

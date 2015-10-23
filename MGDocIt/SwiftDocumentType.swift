@@ -8,17 +8,21 @@
 
 import Foundation
 
-
+/// All Swift types must conform to this protocol in order to be documented.
 protocol SwiftDocumentType : DocumentType, CustomStringConvertible
 {
 	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
 }
-
 extension SwiftDocumentType
 {
 	var description: String { return documentationWithIndentation("") }
 }
 
+/// Create a Swift type based on the kind of swift declaration being documented
+///
+/// - Parameter kind: This is a parameter of type `SwiftDeclarationKind?`. The kind of swift declaration being documented.
+///
+/// - Returns: The SwiftDocumentType type so that it can be initialized. Can be nil
 @warn_unused_result func createSwiftType(kind: SwiftDeclarationKind?) -> SwiftDocumentType.Type?
 {
 	guard let kind = kind

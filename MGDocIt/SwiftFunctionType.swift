@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum SwiftFunctionKind
+/// Kinds of functions
+enum FunctionKind
 {
 	case Global
 	case StaticClass
@@ -23,7 +24,7 @@ struct SwiftFunction : SwiftDocumentType, Documentable
 		switch kind
 		{
 		case .Global:
-			return "MGSwiftFunctionGloabl"
+			return "MGSwiftFunctionGlobal"
 		case .StaticClass:
 			return "MGSwiftFunctionStaticClass"
 		case .Instance:
@@ -34,14 +35,14 @@ struct SwiftFunction : SwiftDocumentType, Documentable
 	}
 	var defaultText: String
 	{
-		return "<#Description of function #$0#>\n- Parameter #$1: This is a parameter of type `#$2`. <#Parameter #$1 description#>\nif#$4- Throws: <#Description#>\n\nend#$4if#$3- Returns: <#Description#>end#$3"
+		return "<#Description of function #$0#>\n- Parameter #$1: This is a parameter of type `#$2`. <#Parameter #$1 description#>\nif#$4\n- Throws: <#Description#>\nend#$4if#$3\n- Returns: <#Description#>\nend#$3"
 	}
 	
 	var returns: Bool
 	var throwsError: Bool
 	var parameters = [(String, type: String)]()
 	var name: String
-	var kind: SwiftFunctionKind
+	var kind: FunctionKind
 	
 	init(dict: XPCDictionary, map: SyntaxMap, @noescape stringDelegate: (start: Int, length: Int) -> String)
 	{
@@ -110,12 +111,18 @@ struct SwiftFunction : SwiftDocumentType, Documentable
 			self.name = ""
 		}
 		
-		if let nameOffset = SwiftDocKey.getNameOffset(dict), let nameLength = SwiftDocKey.getNameLength(dict), let end = SwiftDocKey.getBodyOffset(dict)
+		if let nameOffset = SwiftDocKey.getNameOffset(dict), let nameLength = SwiftDocKey.getNameLength(dict)
 		{
+			let end = SwiftDocKey.getBodyOffset(dict) ?? (SwiftDocKey.getOffset(dict)! + SwiftDocKey.getLength(dict)!)
 			let startOffset = Int(nameOffset + nameLength)
 			let endOffset = Int(end)
-			for token in map.tokens where (token.offset >= startOffset && token.offset < endOffset)
+			for token in map.tokens where token.offset >= startOffset
 			{
+				guard token.offset < endOffset
+				else
+				{
+					break
+				}
 				if token.type == SyntaxKind.Typeidentifier
 				{
 					let str = stringDelegate(start: token.offset, length: token.length).lowercaseString

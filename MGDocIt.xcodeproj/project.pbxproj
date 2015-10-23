@@ -13,14 +13,24 @@
 		821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */; };
 		823402A51B80762500945588 /* Documentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823402A41B80762500945588 /* Documentable.swift */; };
 		824FD8A31B81EE39009F59CE /* MGCXToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A21B81EE39009F59CE /* MGCXToken.m */; };
-		824FD8A51B825A68009F59CE /* ObjectiveCDocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */; };
+		824FD8A51B825A68009F59CE /* CXDocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A41B825A68009F59CE /* CXDocumentType.swift */; };
 		824FD8A71B825B83009F59CE /* ObjectiveCInterfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */; };
 		824FD8AA1B827C33009F59CE /* ObjectiveCNameAndInheritedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A91B827C33009F59CE /* ObjectiveCNameAndInheritedType.swift */; };
 		824FD8AE1B827F79009F59CE /* NameAndInheritedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8AD1B827F79009F59CE /* NameAndInheritedType.swift */; };
 		824FD8B01B8280B8009F59CE /* NameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8AF1B8280B8009F59CE /* NameType.swift */; };
-		824FD8B21B828182009F59CE /* ObjectiveCNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B11B828182009F59CE /* ObjectiveCNameType.swift */; };
+		824FD8B21B828182009F59CE /* CXNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B11B828182009F59CE /* CXNameType.swift */; };
 		824FD8B41B8281E9009F59CE /* ObjectiveCVarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B31B8281E9009F59CE /* ObjectiveCVarType.swift */; };
-		824FD8B71B8282C1009F59CE /* ObjectiveCFunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B61B8282C1009F59CE /* ObjectiveCFunctionType.swift */; };
+		824FD8B71B8282C1009F59CE /* CXFunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B61B8282C1009F59CE /* CXFunctionType.swift */; };
+		824FD8B91B8313D9009F59CE /* ObjectiveCCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8B81B8313D9009F59CE /* ObjectiveCCategoryType.swift */; };
+		824FD8BB1B83173A009F59CE /* ObjectiveCProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8BA1B83173A009F59CE /* ObjectiveCProtocolType.swift */; };
+		824FD8BD1B83317A009F59CE /* CXEnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8BC1B83317A009F59CE /* CXEnumType.swift */; };
+		824FD8BF1B8333BE009F59CE /* CXEnumElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8BE1B8333BE009F59CE /* CXEnumElement.swift */; };
+		824FD8C11B83358A009F59CE /* CXTypedefType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8C01B83358A009F59CE /* CXTypedefType.swift */; };
+		824FD8C31B83379A009F59CE /* CFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8C21B83379A009F59CE /* CFieldType.swift */; };
+		824FD8C51B8337D6009F59CE /* CXStructType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8C41B8337D6009F59CE /* CXStructType.swift */; };
+		824FD8C71B8337E2009F59CE /* CXUnionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8C61B8337E2009F59CE /* CXUnionType.swift */; };
+		824FD8D41B833C88009F59CE /* CNamespaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8D31B833C88009F59CE /* CNamespaceType.swift */; };
+		824FD8D61B83A335009F59CE /* C++ClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8D51B83A335009F59CE /* C++ClassType.swift */; };
 		8271FE151B7DCEE300669FE7 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE141B7DCEE300669FE7 /* AppKit.framework */; };
 		8271FE171B7DCEE300669FE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271FE161B7DCEE300669FE7 /* Foundation.framework */; };
 		8271FE1B1B7DCEE300669FE7 /* MGDocIt.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = 8271FE1A1B7DCEE300669FE7 /* MGDocIt.xcscheme */; };
@@ -70,14 +80,24 @@
 		824FD89F1B80EDE4009F59CE /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		824FD8A11B81EE39009F59CE /* MGCXToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCXToken.h; sourceTree = "<group>"; };
 		824FD8A21B81EE39009F59CE /* MGCXToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCXToken.m; sourceTree = "<group>"; };
-		824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCDocumentType.swift; sourceTree = "<group>"; };
+		824FD8A41B825A68009F59CE /* CXDocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXDocumentType.swift; sourceTree = "<group>"; };
 		824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCInterfaceType.swift; sourceTree = "<group>"; };
 		824FD8A91B827C33009F59CE /* ObjectiveCNameAndInheritedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCNameAndInheritedType.swift; sourceTree = "<group>"; };
 		824FD8AD1B827F79009F59CE /* NameAndInheritedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameAndInheritedType.swift; sourceTree = "<group>"; };
 		824FD8AF1B8280B8009F59CE /* NameType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameType.swift; sourceTree = "<group>"; };
-		824FD8B11B828182009F59CE /* ObjectiveCNameType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCNameType.swift; sourceTree = "<group>"; };
+		824FD8B11B828182009F59CE /* CXNameType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXNameType.swift; sourceTree = "<group>"; };
 		824FD8B31B8281E9009F59CE /* ObjectiveCVarType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCVarType.swift; sourceTree = "<group>"; };
-		824FD8B61B8282C1009F59CE /* ObjectiveCFunctionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCFunctionType.swift; sourceTree = "<group>"; };
+		824FD8B61B8282C1009F59CE /* CXFunctionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXFunctionType.swift; sourceTree = "<group>"; };
+		824FD8B81B8313D9009F59CE /* ObjectiveCCategoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCCategoryType.swift; sourceTree = "<group>"; };
+		824FD8BA1B83173A009F59CE /* ObjectiveCProtocolType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCProtocolType.swift; sourceTree = "<group>"; };
+		824FD8BC1B83317A009F59CE /* CXEnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXEnumType.swift; sourceTree = "<group>"; };
+		824FD8BE1B8333BE009F59CE /* CXEnumElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXEnumElement.swift; sourceTree = "<group>"; };
+		824FD8C01B83358A009F59CE /* CXTypedefType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXTypedefType.swift; sourceTree = "<group>"; };
+		824FD8C21B83379A009F59CE /* CFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CFieldType.swift; sourceTree = "<group>"; };
+		824FD8C41B8337D6009F59CE /* CXStructType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXStructType.swift; sourceTree = "<group>"; };
+		824FD8C61B8337E2009F59CE /* CXUnionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXUnionType.swift; sourceTree = "<group>"; };
+		824FD8D31B833C88009F59CE /* CNamespaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNamespaceType.swift; sourceTree = "<group>"; };
+		824FD8D51B83A335009F59CE /* C++ClassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "C++ClassType.swift"; sourceTree = "<group>"; };
 		8271FE111B7DCEE300669FE7 /* MGDocIt.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGDocIt.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8271FE141B7DCEE300669FE7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		8271FE161B7DCEE300669FE7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -192,15 +212,15 @@
 			name = Clang;
 			sourceTree = "<group>";
 		};
-		824FD8A81B825B87009F59CE /* ObjectiveCTypes */ = {
+		824FD8A81B825B87009F59CE /* CXTypes */ = {
 			isa = PBXGroup;
 			children = (
-				824FD8A41B825A68009F59CE /* ObjectiveCDocumentType.swift */,
-				824FD8B61B8282C1009F59CE /* ObjectiveCFunctionType.swift */,
+				824FD8A41B825A68009F59CE /* CXDocumentType.swift */,
+				824FD8B61B8282C1009F59CE /* CXFunctionType.swift */,
 				824FD8B51B8282A9009F59CE /* Name */,
-				824FD8AC1B827F4D009F59CE /* Name And Inherited */,
+				824FD8AC1B827F4D009F59CE /* Objc Name And Inherited */,
 			);
-			name = ObjectiveCTypes;
+			name = CXTypes;
 			sourceTree = "<group>";
 		};
 		824FD8AB1B827E9A009F59CE /* Wrappers */ = {
@@ -216,20 +236,30 @@
 			name = Wrappers;
 			sourceTree = "<group>";
 		};
-		824FD8AC1B827F4D009F59CE /* Name And Inherited */ = {
+		824FD8AC1B827F4D009F59CE /* Objc Name And Inherited */ = {
 			isa = PBXGroup;
 			children = (
 				824FD8A91B827C33009F59CE /* ObjectiveCNameAndInheritedType.swift */,
 				824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */,
+				824FD8B81B8313D9009F59CE /* ObjectiveCCategoryType.swift */,
+				824FD8BA1B83173A009F59CE /* ObjectiveCProtocolType.swift */,
+				824FD8D51B83A335009F59CE /* C++ClassType.swift */,
 			);
-			name = "Name And Inherited";
+			name = "Objc Name And Inherited";
 			sourceTree = "<group>";
 		};
 		824FD8B51B8282A9009F59CE /* Name */ = {
 			isa = PBXGroup;
 			children = (
-				824FD8B11B828182009F59CE /* ObjectiveCNameType.swift */,
+				824FD8B11B828182009F59CE /* CXNameType.swift */,
 				824FD8B31B8281E9009F59CE /* ObjectiveCVarType.swift */,
+				824FD8BC1B83317A009F59CE /* CXEnumType.swift */,
+				824FD8BE1B8333BE009F59CE /* CXEnumElement.swift */,
+				824FD8C01B83358A009F59CE /* CXTypedefType.swift */,
+				824FD8C41B8337D6009F59CE /* CXStructType.swift */,
+				824FD8C61B8337E2009F59CE /* CXUnionType.swift */,
+				824FD8C21B83379A009F59CE /* CFieldType.swift */,
+				824FD8D31B833C88009F59CE /* CNamespaceType.swift */,
 			);
 			name = Name;
 			sourceTree = "<group>";
@@ -320,10 +350,10 @@
 				823402A41B80762500945588 /* Documentable.swift */,
 				824FD8AF1B8280B8009F59CE /* NameType.swift */,
 				824FD8AD1B827F79009F59CE /* NameAndInheritedType.swift */,
-				824FD8A01B80EDE8009F59CE /* Clang */,
 				823402A31B8075C700945588 /* SourceKit */,
 				82EB00E81B7F80C60022016F /* SwiftTypes */,
-				824FD8A81B825B87009F59CE /* ObjectiveCTypes */,
+				824FD8A01B80EDE8009F59CE /* Clang */,
+				824FD8A81B825B87009F59CE /* CXTypes */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -406,31 +436,41 @@
 				8271FE1E1B7DCEE300669FE7 /* MGDocIt.m in Sources */,
 				82F176541B7E0734008C1E29 /* MGDocIt.swift in Sources */,
 				824FD8A71B825B83009F59CE /* ObjectiveCInterfaceType.swift in Sources */,
+				824FD8C71B8337E2009F59CE /* CXUnionType.swift in Sources */,
 				82EB00F91B7FC4DB0022016F /* SwiftTypealiasType.swift in Sources */,
 				82EB00F21B7FC3EF0022016F /* SwiftStructType.swift in Sources */,
 				82EB00FF1B7FCAA60022016F /* SwiftEnumElementType.swift in Sources */,
+				824FD8D61B83A335009F59CE /* C++ClassType.swift in Sources */,
 				824FD8AE1B827F79009F59CE /* NameAndInheritedType.swift in Sources */,
 				821BF5531B7E613200E299F1 /* SyntaxKind.swift in Sources */,
-				824FD8A51B825A68009F59CE /* ObjectiveCDocumentType.swift in Sources */,
+				824FD8A51B825A68009F59CE /* CXDocumentType.swift in Sources */,
 				82F176581B7E48DD008C1E29 /* SyntaxToken.swift in Sources */,
+				824FD8BD1B83317A009F59CE /* CXEnumType.swift in Sources */,
 				82EB00F01B7FC3630022016F /* SwiftNameOnlyType.swift in Sources */,
 				82EB00F71B7FC4C60022016F /* SwiftVarType.swift in Sources */,
 				824FD8A31B81EE39009F59CE /* MGCXToken.m in Sources */,
-				824FD8B21B828182009F59CE /* ObjectiveCNameType.swift in Sources */,
+				824FD8B21B828182009F59CE /* CXNameType.swift in Sources */,
 				82E16B411B7E51350087BD2C /* SwiftDocKey.swift in Sources */,
 				824FD8AA1B827C33009F59CE /* ObjectiveCNameAndInheritedType.swift in Sources */,
-				824FD8B71B8282C1009F59CE /* ObjectiveCFunctionType.swift in Sources */,
+				824FD8D41B833C88009F59CE /* CNamespaceType.swift in Sources */,
+				824FD8B71B8282C1009F59CE /* CXFunctionType.swift in Sources */,
 				82F1765A1B7E4951008C1E29 /* File.swift in Sources */,
 				82F176481B7DE063008C1E29 /* MGTextResult.m in Sources */,
 				8271FE211B7DCEE300669FE7 /* NSObject_Extension.m in Sources */,
+				824FD8BF1B8333BE009F59CE /* CXEnumElement.swift in Sources */,
 				82EB00FB1B7FC7EF0022016F /* SwiftNameAndInheritedType.swift in Sources */,
 				824FD8B01B8280B8009F59CE /* NameType.swift in Sources */,
 				82EB00FD1B7FC9F50022016F /* SwiftEnumType.swift in Sources */,
 				82EB00EC1B7FC2300022016F /* SwiftExtensionType.swift in Sources */,
+				824FD8C11B83358A009F59CE /* CXTypedefType.swift in Sources */,
+				824FD8C51B8337D6009F59CE /* CXStructType.swift in Sources */,
 				82EB00EA1B7F80D30022016F /* SwiftFunctionType.swift in Sources */,
+				824FD8B91B8313D9009F59CE /* ObjectiveCCategoryType.swift in Sources */,
+				824FD8BB1B83173A009F59CE /* ObjectiveCProtocolType.swift in Sources */,
 				82F176451B7DE02C008C1E29 /* NSTextView+TextGetter.m in Sources */,
 				823402A51B80762500945588 /* Documentable.swift in Sources */,
 				82F176561B7E48B7008C1E29 /* SyntaxMap.swift in Sources */,
+				824FD8C31B83379A009F59CE /* CFieldType.swift in Sources */,
 				824FD8B41B8281E9009F59CE /* ObjectiveCVarType.swift in Sources */,
 				821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */,
 				821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */,
@@ -532,7 +572,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = ManavGabhawala.MGDocIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MGDocIt/MGDocIt-Bridging-Header.h";
@@ -560,10 +600,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = ManavGabhawala.MGDocIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MGDocIt/MGDocIt-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				WRAPPER_EXTENSION = xcplugin;
 			};
 			name = Release;

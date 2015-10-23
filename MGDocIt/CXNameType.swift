@@ -1,5 +1,5 @@
 //
-//  ObjectiveCNameType.swift
+//  CXNameType.swift
 //  MGDocIt
 //
 //  Created by Manav Gabhawala on 18/08/15.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol ObjectiveCNameType : NameType, ObjectiveCDocumentType
+protocol CXNameType : NameType, CXDocumentType
 {
 	init(name: String)
 }
-extension ObjectiveCNameType
+extension CXNameType
 {
 	init(cursor: CXCursor, tokens: [MGCXToken], translationUnit tu: CXTranslationUnit)
 	{

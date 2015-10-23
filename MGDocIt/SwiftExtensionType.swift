@@ -9,7 +9,7 @@
 import Foundation
 
 private let extensionKey = "MGSwiftExtensionKey"
-private let extensionDefaultText = "// MARK: - <#$1>"
+private let extensionDefaultText = "MARK: - <#$1>"
 
 struct SwiftExtension : SwiftNameAndInheritedType
 {

@@ -493,7 +493,7 @@ func findAllSubstructures(dict: XPCDictionary?, withCursorPosition cursor: Int) 
 		return findAllSubstructures(substructures.last as? XPCDictionary, withCursorPosition: cursor)
 	}
 	// If there are previous structures check that they end before cursor.
-	if structureIndex > 1
+	if structureIndex >= 1
 	{
 		let previousDict = substructures[structureIndex - 1] as! XPCDictionary
 		guard Int(SwiftDocKey.getOffset(previousDict)! + SwiftDocKey.getLength(previousDict)!) < cursor

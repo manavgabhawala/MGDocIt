@@ -11,7 +11,7 @@ import Foundation
 private let varKey = "MGObjcVar"
 private let varDefaultText = "<#Description of variable #$0#>"
 
-struct ObjectiveCVarType : ObjectiveCNameType
+struct ObjectiveCVar : CXNameType
 {
 	var key: String { return varKey }
 	var defaultText: String

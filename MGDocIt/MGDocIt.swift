@@ -172,8 +172,6 @@ extension MGDocIt
 	/// - Parameter textStorage: This is a parameter of type `NSTextView`. The storage who was changed. This parameter is used to pass to the `pasteHeaderDocFor:` function.
 	/// - Parameter str: This is a parameter of type `String`. The string which is C, C++ or ObjC source code that should be parsed.
 	/// - Parameter cursorPos: This is a parameter of type `Int`. The current position of the cursor offset for the removal of the newly inserted trigger.
-	///
-	///
 	func handleNonSwiftStorageChange(textStorage: NSTextView, parsedString str: String, cursorPosition cursorPos: Int)
 	{
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
@@ -213,11 +211,10 @@ extension MGDocIt
 				catch
 				{ }
 			}
-			let unit = clang_parseTranslationUnit(clangIndex, (directory.URLByAppendingPathComponent(fileName).path! as NSString).UTF8String, opts, Int32(opts.count), nil, 0, CXTranslationUnit_SkipFunctionBodies.rawValue)
-			
-//			let unit = clang_createTranslationUnitFromSourceFile(clangIndex, (file.path! as NSString).UTF8String, Int32(opts.count), opts, 0, nil)
+			let unit = clang_parseTranslationUnit(clangIndex, (directory.URLByAppendingPathComponent(fileName).path! as NSString).UTF8String, opts, Int32(opts.count), nil, 0, CXTranslationUnit_None.rawValue)
 			
 			var selectedCursor : CXCursor?
+			
 			var topCursor = clang_getTranslationUnitCursor(unit)
 
 			clang_visitChildrenWithBlock(topCursor) { cursor, parent in
@@ -240,15 +237,16 @@ extension MGDocIt
 				clang_getSpellingLocation(clang_getRangeEnd(extents), nil, nil, nil, &endOffset)
 				
 				let start = Int(startOffset)
-				let end = Int(endOffset)
-				
+				let end = Int(endOffset)				
+				print(String(clang_getCursorSpelling(cursor)))
 				guard end >= cursorPos
 				else
 				{
 					return CXChildVisit_Continue
 				}
+				
 				guard start >= cursorPos
-					else
+				else
 				{
 					topCursor = cursor
 					return CXChildVisit_Recurse
@@ -256,20 +254,51 @@ extension MGDocIt
 				selectedCursor = cursor
 				return CXChildVisit_Break
 			}
-			guard let selected = selectedCursor
+			guard var selected = selectedCursor
 			else
 			{
 				print("No selected cursor")
 				return
 			}
+			
+			let language = clang_getCursorLanguage(selected)
+			if language.rawValue != CXLanguage_ObjC.rawValue && language.rawValue != CXLanguage_Invalid.rawValue
+			{
+				let newOpt = ["-x", "c++"].map { ($0 as NSString).UTF8String }
+				let unit = clang_parseTranslationUnit(clangIndex, (directory.URLByAppendingPathComponent(fileName).path! as NSString).UTF8String, newOpt, Int32(newOpt.count), nil, 0, CXTranslationUnit_None.rawValue)
+				let oldSelected = selected
+				selected = clang_getCursor(unit, clang_getCursorLocation(selected))
+				if clang_getCursorKind(selected).rawValue == CXCursor_UnexposedDecl.rawValue
+				{
+					selected = oldSelected
+				}
+			}
+			var isCommented = false
 			let kind = clang_getCursorKind(selected)
-			guard kind.rawValue > CXCursor_FirstDecl.rawValue && kind.rawValue <= CXCursor_LastDecl.rawValue
+			
+			clang_visitChildrenWithBlock(selected, { (child, _) -> CXChildVisitResult in
+				guard clang_getCursorKind(child).rawValue == kind.rawValue
+				else
+				{
+					return CXChildVisit_Recurse
+				}
+				guard clang_Comment_getKind(clang_Cursor_getParsedComment(selected)).rawValue == CXComment_Null.rawValue
+					else
+				{
+					isCommented = true
+					return CXChildVisit_Break
+				}
+				return CXChildVisit_Recurse
+			})
+			
+			guard !isCommented
 			else
 			{
 				return
 			}
+			print(String(clang_getCursorSpelling(selected)))
 			// By only using the type we are saving on creating the tokens spuriously.
-			guard let type = createObjectiveCType(kind)
+			guard let type = createCXType(kind)
 			else
 			{
 				return
@@ -333,12 +362,12 @@ extension MGDocIt
 				{
 					NSEvent.removeMonitor(self.eventMonitor!)
 					self.eventMonitor = nil
+					let oldCursor = textStorage.currentCursorLocation()
 					self.performPasteAction()
 					pasteboard.setString(oldData ?? "", forType: NSPasteboardTypeString)
-					let cursor = textStorage.currentCursorLocation()
 					if docString.rangeOfString("<#") != nil
 					{
-						textStorage.selectedRange = NSRange(location: max(0, Int(cursor - docString.characters.count)), length: 0)
+						textStorage.selectedRange = NSRange(location: oldCursor, length: 0)
 						KeyboardSimulator.defaultSimulator().sendKeyCode(kVK_Tab)
 					}
 					KeyboardSimulator.defaultSimulator().endKeyboardEvents()

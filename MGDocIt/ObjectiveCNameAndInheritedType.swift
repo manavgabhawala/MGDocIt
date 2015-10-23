@@ -7,7 +7,7 @@
 //
 
 import Foundation
-protocol ObjectiveCNameAndInheritedType : NameAndInheritedType, ObjectiveCDocumentType
+protocol ObjectiveCNameAndInheritedType : NameAndInheritedType, CXDocumentType
 {
 	init(name: String, inheritedTypes: [String])
 }
@@ -21,8 +21,8 @@ extension ObjectiveCNameAndInheritedType
 		clang_getSpellingLocation(clang_getRangeEnd(clang_getCursorExtent(cursor)), nil, nil , nil, &endOffset)
 		
 		clang_visitChildrenWithBlock(cursor) { child, _ in
-			guard clang_getCursorKind(child).rawValue != CXCursor_ObjCProtocolRef.rawValue
-				else
+			guard [CXCursor_ObjCProtocolRef.rawValue, CXCursor_ObjCSuperClassRef.rawValue, CXCursor_ObjCClassRef.rawValue].indexOf(clang_getCursorKind(child).rawValue) == nil
+			else
 			{
 				return CXChildVisit_Continue
 			}
@@ -38,12 +38,13 @@ extension ObjectiveCNameAndInheritedType
 			var tokenStart: UInt32 = 0
 			clang_getSpellingLocation(clang_getTokenLocation(tu, t.token), nil, nil, nil, &tokenStart)
 			guard tokenStart < endOffset
-				else
+			else
 			{
 				break
 			}
+
 			guard let tokenName = String(clang_getTokenSpelling(tu, t.token)) where encounteredColon || encounteredOpenAngle || clang_getTokenKind(t.token) == CXToken_Punctuation
-				else
+			else
 			{
 				continue
 			}
