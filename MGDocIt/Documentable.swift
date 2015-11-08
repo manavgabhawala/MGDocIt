@@ -145,7 +145,7 @@ extension Documentable
 						else
 						{
 							let str = arrayValue.reduce("", combine: { "\($0)\($1), " })
-							let replaceTok = str.substringToIndex(advance(str.endIndex, -2))
+							let replaceTok = str.substringToIndex(str.endIndex.advancedBy(-2))
 							docText.replaceRange(singleTokenRange, with: "\(replaceTok)")
 						}
 						continue

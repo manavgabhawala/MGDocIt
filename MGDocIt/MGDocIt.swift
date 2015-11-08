@@ -62,7 +62,7 @@ extension MGDocIt
 		let cursorPos = textStorage.currentCursorLocation() - triggerLength
 		
 		let textStorageStr = textStorage.textStorage!.string
-		let str = textStorageStr.stringByRemovingRange(advance(textStorageStr.startIndex, cursorPos), end: advance(textStorageStr.startIndex, cursorPos + triggerLength))
+		let str = textStorageStr.stringByRemovingRange(textStorageStr.startIndex.advancedBy(cursorPos), end: textStorageStr.startIndex.advancedBy(cursorPos + triggerLength))
 		
 		// TODO: Add playground support
 		if file.pathExtension == "swift"
@@ -141,8 +141,8 @@ extension MGDocIt
 					return
 				}
 			}
-			let startInd = advance(str.startIndex, nextToken.offset)
-			let nextWord = str.substringWithRange(Range<String.Index>(start: startInd, end: advance(startInd, nextToken.length)))
+			let startInd = str.startIndex.advancedBy(nextToken.offset)
+			let nextWord = str.substringWithRange(Range<String.Index>(start: startInd, end: startInd.advancedBy(nextToken.length)))
 			// Since import statements don't show up in the AST.
 			guard nextWord != "import"
 			else
@@ -157,9 +157,10 @@ extension MGDocIt
 			}
 			
 			let doc = type.init(dict: structure, map: map, stringDelegate: {
-				let startLoc = advance(str.startIndex, $0)
-				let range = Range<String.Index>(start: startLoc, end: advance(startLoc, $1))
-				return str.substringWithRange(range)
+				let startLoc = str.startIndex.advancedBy($0 - 1)
+				let range = Range<String.Index>(start: startLoc, end: startLoc.advancedBy($1))
+				let str = str.substringWithRange(range)
+				return str
 			})
 			let indentString = self.calculateIndentString(fromString: str, withOffset: Int(SwiftDocKey.getOffset(structure)!))
 			
@@ -239,7 +240,7 @@ extension MGDocIt
 				let start = Int(startOffset)
 				let end = Int(endOffset)				
 				print(String(clang_getCursorSpelling(cursor)))
-				guard end >= cursorPos
+				guard end > cursorPos
 				else
 				{
 					return CXChildVisit_Continue
@@ -249,6 +250,9 @@ extension MGDocIt
 				else
 				{
 					topCursor = cursor
+					let range = Range<String.Index>(start: str.startIndex.advancedBy(start - 1), end: str.startIndex.advancedBy(end))
+					print(str.substringWithRange(range))
+					print(String(clang_getCursorSpelling(cursor)))
 					return CXChildVisit_Recurse
 				}
 				selectedCursor = cursor
@@ -260,11 +264,12 @@ extension MGDocIt
 				print("No selected cursor")
 				return
 			}
-			
+			print(String(clang_getCursorSpelling(selected)))
 			let language = clang_getCursorLanguage(selected)
 			if language.rawValue != CXLanguage_ObjC.rawValue && language.rawValue != CXLanguage_Invalid.rawValue
 			{
-				let newOpt = ["-x", "c++"].map { ($0 as NSString).UTF8String }
+				let opt = CXLanguage_C.rawValue == language.rawValue ? "c" : "c++"
+				let newOpt = ["-x", opt].map { ($0 as NSString).UTF8String }
 				let unit = clang_parseTranslationUnit(clangIndex, (directory.URLByAppendingPathComponent(fileName).path! as NSString).UTF8String, newOpt, Int32(newOpt.count), nil, 0, CXTranslationUnit_None.rawValue)
 				let oldSelected = selected
 				selected = clang_getCursor(unit, clang_getCursorLocation(selected))
@@ -291,6 +296,12 @@ extension MGDocIt
 				return CXChildVisit_Recurse
 			})
 			
+			let comment = clang_Cursor_getParsedComment(selected)
+			
+			if clang_Comment_getKind(comment).rawValue != CXComment_Null.rawValue
+			{
+				isCommented = true
+			}
 			guard !isCommented
 			else
 			{
@@ -323,7 +334,7 @@ extension MGDocIt
 	/// - Returns: The indent string. This string will either be empty or full of ` ` and `\t` characters. No characters not in the `NSCharacterSet.whitespaceCharacterSet()` will be included.
 	@warn_unused_result func calculateIndentString(fromString str: String, withOffset offset: Int) -> String
 	{
-		let structOffset = advance(str.startIndex, offset)
+		let structOffset = str.startIndex.advancedBy(offset)
 		let indentPoint = str.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: NSStringCompareOptions.BackwardsSearch, range: Range<String.Index>(start: str.startIndex, end: structOffset))
 		let fullIndentString = str.substringWithRange(Range<String.Index>(start: indentPoint?.endIndex ?? structOffset, end: structOffset))
 		var endIndex = fullIndentString.startIndex

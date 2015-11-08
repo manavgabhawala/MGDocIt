@@ -14,7 +14,6 @@ private let triggerStringKey = "MGTriggerString"
 private let prefixStringKey = "MGPrefixString"
 private let beginningStringKey = "MGBeginningString"
 private let endingStringKey = "MGEndingString"
-private let useDvorakKey = "MGDvorakLayout"
 
 @objc class MGDocItSetting: NSObject
 {

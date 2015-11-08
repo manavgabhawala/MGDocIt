@@ -133,7 +133,8 @@ struct SwiftFunction : SwiftDocumentType, Documentable
 					}
 					returns = true
 				}
-				if token.type == SyntaxKind.Keyword && stringDelegate(start: token.offset, length: token.length) == "throws"
+				let str = stringDelegate(start: token.offset, length: token.length)
+				if token.type == SyntaxKind.Keyword && str == "throws"
 				{
 					throwsError = true
 				}

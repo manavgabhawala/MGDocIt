@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SupportViewController" customModule="MGDocIt" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="256"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QYW-f8-v2x">
+                    <rect key="frame" x="18" y="160" width="444" height="51"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="is5-Su-V0L">
+                        <font key="font" metaFont="system"/>
+                        <string key="title">If you somehow managed to stumble across a bug or just simply want to reach out to request a new feature. Here are the preferred channels of communication:</string>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="OwG-5G-w7h">
+                    <rect key="frame" x="20" y="20" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="Myk-Z3-UMF"/>
+                        <constraint firstAttribute="width" constant="100" id="qF1-xg-aEN"/>
+                    </constraints>
+                    <animations/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Github" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Nnr-vG-hgb">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="githubPressed:" target="-2" id="x4n-L2-Ykl"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="v0y-uK-hnZ">
+                    <rect key="frame" x="360" y="20" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="PrV-Y9-MVA"/>
+                        <constraint firstAttribute="width" constant="100" id="mgb-38-5g7"/>
+                    </constraints>
+                    <animations/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Website" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="PW8-Wi-LeT">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="websitePressed:" target="-2" id="5dK-4U-58S"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Vgy-4x-QHH">
+                    <rect key="frame" x="133" y="20" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="kHo-5P-Jqs"/>
+                        <constraint firstAttribute="width" constant="100" id="mGa-nR-Z3L"/>
+                    </constraints>
+                    <animations/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Twitter" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="jh0-lb-MaW">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="twitterPressed:" target="-2" id="5Ku-TV-yt6"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x9N-77-bh1">
+                    <rect key="frame" x="110" y="219" width="261" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MGDocIt was built by Manav Gabhawala" id="O3g-Jm-IoW">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="FbY-gR-KcZ">
+                    <rect key="frame" x="247" y="20" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="aPf-Bl-gd9"/>
+                        <constraint firstAttribute="width" constant="100" id="jfp-SH-IqQ"/>
+                    </constraints>
+                    <animations/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Email" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="5I2-L1-3CA">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="emailPressed:" target="-2" id="jFn-oy-M8Z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="FbY-gR-KcZ" firstAttribute="top" secondItem="QYW-f8-v2x" secondAttribute="bottom" constant="40" id="3rl-a1-rmI"/>
+                <constraint firstItem="Vgy-4x-QHH" firstAttribute="top" secondItem="QYW-f8-v2x" secondAttribute="bottom" constant="40" id="4Im-oh-TTt"/>
+                <constraint firstAttribute="centerX" secondItem="x9N-77-bh1" secondAttribute="centerX" id="5SV-Cu-Pmh"/>
+                <constraint firstAttribute="trailing" secondItem="QYW-f8-v2x" secondAttribute="trailing" constant="20" id="5wC-aE-nnC"/>
+                <constraint firstItem="OwG-5G-w7h" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="7Ty-8v-cKf"/>
+                <constraint firstAttribute="bottom" secondItem="Vgy-4x-QHH" secondAttribute="bottom" constant="20" id="GRn-W6-tCs"/>
+                <constraint firstItem="QYW-f8-v2x" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="Ll3-tW-jbT"/>
+                <constraint firstItem="OwG-5G-w7h" firstAttribute="top" secondItem="QYW-f8-v2x" secondAttribute="bottom" constant="40" id="Mg6-dK-FXQ"/>
+                <constraint firstAttribute="bottom" secondItem="v0y-uK-hnZ" secondAttribute="bottom" constant="20" id="YrI-vJ-h2Z"/>
+                <constraint firstAttribute="trailing" secondItem="v0y-uK-hnZ" secondAttribute="trailing" constant="20" id="fNs-U7-dSe"/>
+                <constraint firstItem="v0y-uK-hnZ" firstAttribute="leading" secondItem="FbY-gR-KcZ" secondAttribute="trailing" constant="13" id="fXQ-PZ-1kh"/>
+                <constraint firstItem="QYW-f8-v2x" firstAttribute="top" secondItem="x9N-77-bh1" secondAttribute="bottom" constant="8" id="nz9-nY-awK"/>
+                <constraint firstItem="Vgy-4x-QHH" firstAttribute="leading" secondItem="OwG-5G-w7h" secondAttribute="trailing" constant="13" id="pFg-dG-x8u"/>
+                <constraint firstItem="v0y-uK-hnZ" firstAttribute="top" secondItem="QYW-f8-v2x" secondAttribute="bottom" constant="40" id="tDE-r6-oxQ"/>
+                <constraint firstItem="FbY-gR-KcZ" firstAttribute="leading" secondItem="Vgy-4x-QHH" secondAttribute="trailing" constant="14" id="uQ6-XT-U2b"/>
+                <constraint firstAttribute="bottom" secondItem="OwG-5G-w7h" secondAttribute="bottom" constant="20" id="uTq-PR-WfI"/>
+                <constraint firstAttribute="bottom" secondItem="FbY-gR-KcZ" secondAttribute="bottom" constant="20" id="zpS-0W-Xle"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="301" y="314"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Email" width="183.75" height="133.5"/>
+        <image name="Github" width="161" height="157"/>
+        <image name="Twitter" width="255" height="207"/>
+        <image name="Website" width="128" height="128"/>
+    </resources>
+</document>

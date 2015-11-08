@@ -12,6 +12,15 @@
 		821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BF5541B7E6A7F00E299F1 /* SwiftDeclarationKind.swift */; };
 		821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */; };
 		823402A51B80762500945588 /* Documentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823402A41B80762500945588 /* Documentable.swift */; };
+		8244EC221BEF0BEB005A78CA /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8244EC201BEF0BEB005A78CA /* PreferencesController.swift */; };
+		8244EC231BEF0BEB005A78CA /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8244EC211BEF0BEB005A78CA /* PreferencesController.xib */; };
+		8244EC261BEF0E71005A78CA /* GeneralPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8244EC241BEF0E71005A78CA /* GeneralPreferencesController.swift */; };
+		8244EC271BEF0E71005A78CA /* GeneralPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8244EC251BEF0E71005A78CA /* GeneralPreferencesController.xib */; };
+		8244EC2A1BEF0E9A005A78CA /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8244EC281BEF0E9A005A78CA /* SupportViewController.swift */; };
+		8244EC2B1BEF0E9A005A78CA /* SupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8244EC291BEF0E9A005A78CA /* SupportViewController.xib */; };
+		8244EC2D1BEF0EEA005A78CA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8244EC2C1BEF0EEA005A78CA /* Images.xcassets */; };
+		8244EC301BEF0F48005A78CA /* AdvancedPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8244EC2E1BEF0F48005A78CA /* AdvancedPreferencesController.swift */; };
+		8244EC311BEF0F48005A78CA /* AdvancedPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8244EC2F1BEF0F48005A78CA /* AdvancedPreferencesController.xib */; };
 		824FD8A31B81EE39009F59CE /* MGCXToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A21B81EE39009F59CE /* MGCXToken.m */; };
 		824FD8A51B825A68009F59CE /* CXDocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A41B825A68009F59CE /* CXDocumentType.swift */; };
 		824FD8A71B825B83009F59CE /* ObjectiveCInterfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824FD8A61B825B83009F59CE /* ObjectiveCInterfaceType.swift */; };
@@ -71,6 +80,15 @@
 		821E4FEE1B7F1B7D0020030F /* KeyboardSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardSimulator.h; sourceTree = "<group>"; };
 		821E4FEF1B7F1B7D0020030F /* KeyboardSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardSimulator.m; sourceTree = "<group>"; };
 		823402A41B80762500945588 /* Documentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Documentable.swift; sourceTree = "<group>"; };
+		8244EC201BEF0BEB005A78CA /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		8244EC211BEF0BEB005A78CA /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
+		8244EC241BEF0E71005A78CA /* GeneralPreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesController.swift; sourceTree = "<group>"; };
+		8244EC251BEF0E71005A78CA /* GeneralPreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesController.xib; sourceTree = "<group>"; };
+		8244EC281BEF0E9A005A78CA /* SupportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		8244EC291BEF0E9A005A78CA /* SupportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupportViewController.xib; sourceTree = "<group>"; };
+		8244EC2C1BEF0EEA005A78CA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8244EC2E1BEF0F48005A78CA /* AdvancedPreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedPreferencesController.swift; sourceTree = "<group>"; };
+		8244EC2F1BEF0F48005A78CA /* AdvancedPreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedPreferencesController.xib; sourceTree = "<group>"; };
 		824FD8991B80EDE4009F59CE /* BuildSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildSystem.h; sourceTree = "<group>"; };
 		824FD89A1B80EDE4009F59CE /* CXCompilationDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCompilationDatabase.h; sourceTree = "<group>"; };
 		824FD89B1B80EDE4009F59CE /* CXErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXErrorCode.h; sourceTree = "<group>"; };
@@ -198,6 +216,42 @@
 			name = "Name And Inherited";
 			sourceTree = "<group>";
 		};
+		8244EC191BEF0939005A78CA /* AST */ = {
+			isa = PBXGroup;
+			children = (
+				823402A31B8075C700945588 /* SourceKit */,
+				824FD8A01B80EDE8009F59CE /* Clang */,
+			);
+			name = AST;
+			sourceTree = "<group>";
+		};
+		8244EC1A1BEF0942005A78CA /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				823402A41B80762500945588 /* Documentable.swift */,
+				824FD8AF1B8280B8009F59CE /* NameType.swift */,
+				824FD8AD1B827F79009F59CE /* NameAndInheritedType.swift */,
+				82EB00E81B7F80C60022016F /* SwiftTypes */,
+				824FD8A81B825B87009F59CE /* CXTypes */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		8244EC1F1BEF0B16005A78CA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8244EC211BEF0BEB005A78CA /* PreferencesController.xib */,
+				8244EC201BEF0BEB005A78CA /* PreferencesController.swift */,
+				8244EC241BEF0E71005A78CA /* GeneralPreferencesController.swift */,
+				8244EC251BEF0E71005A78CA /* GeneralPreferencesController.xib */,
+				8244EC2E1BEF0F48005A78CA /* AdvancedPreferencesController.swift */,
+				8244EC2F1BEF0F48005A78CA /* AdvancedPreferencesController.xib */,
+				8244EC281BEF0E9A005A78CA /* SupportViewController.swift */,
+				8244EC291BEF0E9A005A78CA /* SupportViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		824FD8A01B80EDE8009F59CE /* Clang */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +354,7 @@
 				8271FE1C1B7DCEE300669FE7 /* MGDocIt.h */,
 				8271FE1D1B7DCEE300669FE7 /* MGDocIt.m */,
 				82F176531B7E0734008C1E29 /* MGDocIt.swift */,
+				8244EC1F1BEF0B16005A78CA /* Views */,
 				82F1764D1B7E03DA008C1E29 /* Model */,
 				82F1764C1B7E03D0008C1E29 /* Categories */,
 				824FD8AB1B827E9A009F59CE /* Wrappers */,
@@ -316,6 +371,7 @@
 				8271FE1F1B7DCEE300669FE7 /* NSObject_Extension.h */,
 				8271FE201B7DCEE300669FE7 /* NSObject_Extension.m */,
 				8271FE1A1B7DCEE300669FE7 /* MGDocIt.xcscheme */,
+				8244EC2C1BEF0EEA005A78CA /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -347,13 +403,8 @@
 		82F1764D1B7E03DA008C1E29 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				823402A41B80762500945588 /* Documentable.swift */,
-				824FD8AF1B8280B8009F59CE /* NameType.swift */,
-				824FD8AD1B827F79009F59CE /* NameAndInheritedType.swift */,
-				823402A31B8075C700945588 /* SourceKit */,
-				82EB00E81B7F80C60022016F /* SwiftTypes */,
-				824FD8A01B80EDE8009F59CE /* Clang */,
-				824FD8A81B825B87009F59CE /* CXTypes */,
+				8244EC1A1BEF0942005A78CA /* Documentation */,
+				8244EC191BEF0939005A78CA /* AST */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -415,6 +466,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8244EC271BEF0E71005A78CA /* GeneralPreferencesController.xib in Resources */,
+				8244EC2D1BEF0EEA005A78CA /* Images.xcassets in Resources */,
+				8244EC311BEF0F48005A78CA /* AdvancedPreferencesController.xib in Resources */,
+				8244EC231BEF0BEB005A78CA /* PreferencesController.xib in Resources */,
+				8244EC2B1BEF0E9A005A78CA /* SupportViewController.xib in Resources */,
 				8271FE1B1B7DCEE300669FE7 /* MGDocIt.xcscheme in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +484,9 @@
 			files = (
 				82F176521B7E04B5008C1E29 /* MGDocItSetting.swift in Sources */,
 				82E16B3F1B7E4FF50087BD2C /* Request.swift in Sources */,
+				8244EC2A1BEF0E9A005A78CA /* SupportViewController.swift in Sources */,
 				82F1765C1B7E4A2C008C1E29 /* XPCHelper.swift in Sources */,
+				8244EC261BEF0E71005A78CA /* GeneralPreferencesController.swift in Sources */,
 				82EB00E71B7F7FD00022016F /* SwiftDocumentType.swift in Sources */,
 				82EB00F41B7FC3FD0022016F /* SwiftProtocolType.swift in Sources */,
 				82EB00EE1B7FC32B0022016F /* SwiftClassType.swift in Sources */,
@@ -470,9 +528,11 @@
 				82F176451B7DE02C008C1E29 /* NSTextView+TextGetter.m in Sources */,
 				823402A51B80762500945588 /* Documentable.swift in Sources */,
 				82F176561B7E48B7008C1E29 /* SyntaxMap.swift in Sources */,
+				8244EC301BEF0F48005A78CA /* AdvancedPreferencesController.swift in Sources */,
 				824FD8C31B83379A009F59CE /* CFieldType.swift in Sources */,
 				824FD8B41B8281E9009F59CE /* ObjectiveCVarType.swift in Sources */,
 				821BF5551B7E6A7F00E299F1 /* SwiftDeclarationKind.swift in Sources */,
+				8244EC221BEF0BEB005A78CA /* PreferencesController.swift in Sources */,
 				821E4FF01B7F1B7D0020030F /* KeyboardSimulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

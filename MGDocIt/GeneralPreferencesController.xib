@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesController" customModule="MGDocIt" customModuleProvider="target">
+            <connections>
+                <outlet property="linePrefixButtons" destination="leI-4q-ecy" id="M2d-OL-E4W"/>
+                <outlet property="prefixButtons" destination="Dn9-aZ-pm7" id="kcJ-K3-6IH"/>
+                <outlet property="suffixButtons" destination="lsy-R6-kRh" id="bMK-u1-NE6"/>
+                <outlet property="triggerString" destination="q7d-ab-doa" id="Qsg-QJ-xYW"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="368"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QUe-v1-uUm">
+                    <rect key="frame" x="96" y="331" width="88" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Trigger String" id="DTj-jd-rfV">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q7d-ab-doa">
+                    <rect key="frame" x="190" y="326" width="100" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Z3j-ye-zgv"/>
+                    </constraints>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="RE9-dz-d5h">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lgV-ZR-Joy">
+                    <rect key="frame" x="116" y="253" width="68" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Line Prefix" id="fwa-Wg-wun">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vXB-Fu-t9R">
+                    <rect key="frame" x="82" y="157" width="102" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Comment Prefix" id="kBV-8f-eAP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jOA-1G-It9">
+                    <rect key="frame" x="82" y="61" width="102" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Comment Suffix" id="rl8-Ua-OlI">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dUe-27-mRZ">
+                    <rect key="frame" x="18" y="290" width="444" height="28"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="Mjr-jG-CJ9">
+                        <font key="font" metaFont="smallSystem"/>
+                        <string key="title">Whenever you type occurences of this string we attempt to insert header docs at that location for the next documentable piece of code.</string>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gm4-1Z-2Fd">
+                    <rect key="frame" x="18" y="194" width="444" height="14"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Each and every line of the inserted header documentation will have this prefix." id="Bnt-cU-1aM">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leI-4q-ecy">
+                    <rect key="frame" x="190" y="216" width="63" height="54"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="63" height="18"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="g2s-4g-O7n">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="///" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="MCh-It-aqA">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="*" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Vvl-qH-ZvA">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="Empty" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="d28-v1-xTx">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dn9-aZ-pm7">
+                    <rect key="frame" x="190" y="120" width="63" height="54"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="63" height="18"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="emT-J9-bjO">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="/**" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wEH-60-Rx1">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="/*!" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wAq-Gg-NGD">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="Empty" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6sf-ZO-PN7">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMi-6w-JFd">
+                    <rect key="frame" x="18" y="98" width="444" height="14"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This string is a prefix for the entire comment being inserted" id="oE9-oP-BA6">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsy-R6-kRh">
+                    <rect key="frame" x="190" y="42" width="63" height="36"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="63" height="18"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rfy-i2-SwF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="*/" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OzU-Pb-Lq2">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <buttonCell type="radio" title="Empty" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="H15-lp-UEr">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36t-gm-IMh">
+                    <rect key="frame" x="18" y="20" width="444" height="14"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This is a suffix for the entire comment being inserted." id="cQs-JT-24G">
+                        <font key="font" metaFont="system" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="leI-4q-ecy" firstAttribute="leading" secondItem="lgV-ZR-Joy" secondAttribute="trailing" constant="8" id="1WJ-sR-JJm"/>
+                <constraint firstAttribute="trailing" secondItem="eMi-6w-JFd" secondAttribute="trailing" constant="20" id="2gy-Wj-RJq"/>
+                <constraint firstItem="q7d-ab-doa" firstAttribute="leading" secondItem="QUe-v1-uUm" secondAttribute="trailing" constant="8" id="4kF-04-hvR"/>
+                <constraint firstItem="eMi-6w-JFd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="7ox-F3-eDL"/>
+                <constraint firstAttribute="trailing" secondItem="Gm4-1Z-2Fd" secondAttribute="trailing" constant="20" id="Cf1-3D-a8W"/>
+                <constraint firstItem="q7d-ab-doa" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="DHN-C8-p4G"/>
+                <constraint firstItem="dUe-27-mRZ" firstAttribute="top" secondItem="q7d-ab-doa" secondAttribute="bottom" constant="8" id="FDW-gx-jwt"/>
+                <constraint firstItem="lsy-R6-kRh" firstAttribute="leading" secondItem="q7d-ab-doa" secondAttribute="leading" id="FkR-7d-aNJ"/>
+                <constraint firstItem="Dn9-aZ-pm7" firstAttribute="top" secondItem="Gm4-1Z-2Fd" secondAttribute="bottom" constant="20" id="IPG-iC-JCW"/>
+                <constraint firstItem="36t-gm-IMh" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="IpD-8f-PpH"/>
+                <constraint firstItem="q7d-ab-doa" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="KN7-Wc-8CI"/>
+                <constraint firstItem="Dn9-aZ-pm7" firstAttribute="leading" secondItem="q7d-ab-doa" secondAttribute="leading" id="MqL-2Z-9xN"/>
+                <constraint firstItem="lgV-ZR-Joy" firstAttribute="top" secondItem="dUe-27-mRZ" secondAttribute="bottom" constant="20" id="ON5-ED-wmS"/>
+                <constraint firstAttribute="bottom" secondItem="36t-gm-IMh" secondAttribute="bottom" constant="20" id="PeQ-lJ-hvt"/>
+                <constraint firstItem="Dn9-aZ-pm7" firstAttribute="leading" secondItem="vXB-Fu-t9R" secondAttribute="trailing" constant="8" id="RDt-HP-KQR"/>
+                <constraint firstItem="lsy-R6-kRh" firstAttribute="top" secondItem="eMi-6w-JFd" secondAttribute="bottom" constant="20" id="SVp-6y-ZF1"/>
+                <constraint firstItem="leI-4q-ecy" firstAttribute="leading" secondItem="q7d-ab-doa" secondAttribute="leading" id="TDJ-3A-seg"/>
+                <constraint firstItem="jOA-1G-It9" firstAttribute="top" secondItem="eMi-6w-JFd" secondAttribute="bottom" constant="20" id="U1F-GO-Y3W"/>
+                <constraint firstItem="leI-4q-ecy" firstAttribute="top" secondItem="dUe-27-mRZ" secondAttribute="bottom" constant="20" id="bDE-9D-X3u"/>
+                <constraint firstItem="lsy-R6-kRh" firstAttribute="leading" secondItem="jOA-1G-It9" secondAttribute="trailing" constant="8" id="bP7-9g-1i0"/>
+                <constraint firstItem="Gm4-1Z-2Fd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="bm4-gk-B1U"/>
+                <constraint firstItem="vXB-Fu-t9R" firstAttribute="top" secondItem="Gm4-1Z-2Fd" secondAttribute="bottom" constant="20" id="eFX-sX-Stv"/>
+                <constraint firstItem="Gm4-1Z-2Fd" firstAttribute="top" secondItem="leI-4q-ecy" secondAttribute="bottom" constant="8" id="eci-YH-s0r"/>
+                <constraint firstItem="eMi-6w-JFd" firstAttribute="top" secondItem="Dn9-aZ-pm7" secondAttribute="bottom" constant="8" id="gQ9-DX-Wxu"/>
+                <constraint firstItem="36t-gm-IMh" firstAttribute="top" secondItem="lsy-R6-kRh" secondAttribute="bottom" constant="8" id="iDb-dX-J10"/>
+                <constraint firstAttribute="trailing" secondItem="dUe-27-mRZ" secondAttribute="trailing" constant="20" id="jNv-vJ-W3Z"/>
+                <constraint firstItem="dUe-27-mRZ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="n2C-PU-Pm3"/>
+                <constraint firstItem="QUe-v1-uUm" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="nFH-78-BIK"/>
+                <constraint firstAttribute="trailing" secondItem="36t-gm-IMh" secondAttribute="trailing" constant="20" id="vap-7O-6pU"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="213" y="321"/>
+        </customView>
+    </objects>
+</document>

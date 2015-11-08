@@ -88,6 +88,7 @@ CGKeyCode keyCodeForChar(const char c)
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
 @property (nonatomic, weak, nullable) NSObject * currentController;
+@property (nonatomic, strong, nullable) PreferencesController *preferences;
 
 @end
 
@@ -124,14 +125,20 @@ CGKeyCode keyCodeForChar(const char c)
 	
 	// Create menu items, initialize UI, etc.
     // Sample Menu Item:
-//    NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
-//    if (menuItem) {
-//        [[menuItem submenu] addItem:[NSMenuItem separatorItem]];
-//        NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Do Action" action:@selector(doMenuAction) keyEquivalent:@""];
-//        //[actionMenuItem setKeyEquivalentModifierMask:NSAlphaShiftKeyMask | NSControlKeyMask];
-//        [actionMenuItem setTarget:self];
-//        [[menuItem submenu] addItem:actionMenuItem];
-//    }
+    NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
+    if (menuItem) {
+        [[menuItem submenu] addItem:[NSMenuItem separatorItem]];
+		NSMenuItem *actionMenuItem = [[NSMenuItem alloc] init];
+		[actionMenuItem setTitle:@"MGDocIt"];
+		NSMenu *submenu = [[NSMenu alloc] init];
+		NSMenuItem *prefs = [[NSMenuItem alloc] initWithTitle: @"Preferences" action:@selector(showDocItPreferences:) keyEquivalent:@""];
+		[prefs setTarget:self];
+		
+		[submenu addItem:prefs];
+		[actionMenuItem setSubmenu:submenu];
+		
+        [[menuItem submenu] addItem:actionMenuItem];
+    }
 }
 
 - (void)dealloc
@@ -142,6 +149,16 @@ CGKeyCode keyCodeForChar(const char c)
 	}
 	self.mainMonitor = nil;
  	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void) showDocItPreferences: (NSMenuItem *) sender
+{
+	if (self.preferences)
+	{
+		self.preferences = nil;
+	}
+	self.preferences = [[PreferencesController alloc] initWithWindowNibName:@"PreferencesController"];
+	[self.preferences showWindow:self.preferences];
 }
 
 -(void) textStorageDidChange: (NSNotification *) notif
